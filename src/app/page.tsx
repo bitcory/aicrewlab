@@ -43,7 +43,7 @@ export default function HomePage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative overflow-hidden border-b-2 border-border lg:min-h-[calc(100vh-5rem)] lg:flex lg:flex-col lg:justify-end">
+      <section className="relative overflow-hidden border-b-2 border-border lg:min-h-[calc(100vh-5rem)]">
         <div
           aria-hidden
           className="relative w-full aspect-[16/9] lg:absolute lg:inset-0 lg:aspect-auto lg:pointer-events-none lg:-z-10"
@@ -58,7 +58,7 @@ export default function HomePage() {
           />
         </div>
 
-        <div className="relative w-full px-4 sm:px-8 lg:px-12 pt-10 pb-16 lg:pt-32 lg:pb-52">
+        <div className="relative w-full px-4 sm:px-8 lg:px-12 pt-10 pb-16 lg:pt-24 lg:pb-32">
           <SectionLabel index="00" className="mb-10">
             AICREW Academy · 2026 Spring
           </SectionLabel>
