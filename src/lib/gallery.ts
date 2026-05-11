@@ -57,5 +57,34 @@ export const GALLERY_VIDEOS: GalleryVideo[] = [
 ];
 
 export const GALLERY_IMAGES: GalleryImage[] = [
-  // 이미지는 비어 있음 — public/gallery/ 에 추가 후 여기에 등록
+  {
+    slug: "ai-creative-companion",
+    title: "AI 크리에이티브 컴패니언",
+    description: "ZERO 클래스에서 만든 AI 협업 콘셉트 이미지 예시입니다.",
+    src: "/gallery/ai-creative-companion.png",
+    level: "zero",
+    stage: "1단계 · AI 이미지 만들기",
+    width: 1672,
+    height: 941,
+  },
+  {
+    slug: "ai-study-planner",
+    title: "AI 학습 플래너 UI",
+    description: "UP 클래스에서 만든 AI 서비스 UI 목업 예시입니다.",
+    src: "/gallery/ai-study-planner.png",
+    level: "up",
+    stage: "2단계 · 서비스 화면 만들기",
+    width: 1672,
+    height: 941,
+  },
+  {
+    slug: "fitness-studio-promo",
+    title: "피트니스 스튜디오 프로모션",
+    description: "PRO 클래스에서 만든 AI 영상 콘셉트 프레임 예시입니다.",
+    src: "/gallery/fitness-studio-promo.png",
+    level: "pro",
+    stage: "3단계 · 캠페인 비주얼 만들기",
+    width: 1672,
+    height: 941,
+  },
 ];
