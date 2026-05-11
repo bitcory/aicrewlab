@@ -49,7 +49,7 @@ export default function HomePage() {
           className="relative w-full aspect-[16/9] lg:absolute lg:inset-0 lg:aspect-auto lg:pointer-events-none lg:-z-10"
         >
           <Image
-            src="/hero.png"
+            src="/hero-v2.png"
             alt=""
             fill
             priority
