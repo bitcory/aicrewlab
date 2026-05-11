@@ -1,0 +1,187 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --radius: 0.75rem;
+
+  /* Base — light mode */
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.14 0 0);
+  --card: oklch(0.99 0 0);
+  --card-foreground: oklch(0.14 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.14 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.42 0 0);
+  --border: oklch(0.85 0 0);
+  --input: oklch(0.85 0 0);
+  --ring: oklch(0.65 0.2 50);
+
+  /* AICREW brand — frontify-inspired gray + orange */
+  --primary: oklch(0.62 0.2 50);             /* warm orange */
+  --primary-foreground: oklch(0.99 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.18 0 0);
+  --accent: oklch(0.5 0.04 250);             /* slate gray */
+  --accent-foreground: oklch(0.99 0 0);
+  --destructive: oklch(0.55 0.26 27);
+  --destructive-foreground: oklch(0.99 0 0);
+
+  /* 분야별 컬러 */
+  --field-coding: oklch(0.55 0.22 145);     /* deep green */
+  --field-video: oklch(0.55 0.26 25);       /* deep warm red */
+  --field-music: oklch(0.5 0.26 280);       /* deep purple */
+
+  /* Decorative tokens (theme-aware) */
+  --grid-line: oklch(0 0 0 / 0.06);
+  --headline-from: oklch(0.55 0.22 50);
+  --headline-to: oklch(0.5 0.2 40);
+  --orb-violet-1: oklch(0.65 0.2 50 / 0.18);
+  --orb-violet-2: oklch(0.65 0.2 50 / 0.15);
+  --orb-violet-3: oklch(0.65 0.2 50 / 0.13);
+  --orb-cyan-1: oklch(0.55 0.06 250 / 0.14);
+  --orb-cyan-2: oklch(0.55 0.06 250 / 0.12);
+  --orb-coding: oklch(0.55 0.22 145 / 0.22);
+  --orb-video: oklch(0.55 0.26 25 / 0.22);
+  --orb-music: oklch(0.5 0.26 280 / 0.22);
+  --divider-glow: oklch(0.6 0.2 50 / 0.5);
+  --logo-to: oklch(0.55 0.22 50);
+  --portfolio-bg-from: oklch(0.97 0.005 285);
+  --portfolio-bg-to: oklch(0.94 0.008 285);
+}
+
+.dark {
+  --background: oklch(0.2 0.012 285);       /* lifted dark */
+  --foreground: oklch(0.99 0 0);
+  --card: oklch(0.245 0.014 285);
+  --card-foreground: oklch(0.99 0 0);
+  --popover: oklch(0.245 0.014 285);
+  --popover-foreground: oklch(0.99 0 0);
+  --muted: oklch(0.3 0.014 285);
+  --muted-foreground: oklch(0.78 0.012 285);
+  --border: oklch(0.42 0.018 285);
+  --input: oklch(0.42 0.018 285);
+  --ring: oklch(0.78 0.22 50);
+
+  --primary: oklch(0.78 0.22 50);            /* glow orange */
+  --primary-foreground: oklch(0.15 0.008 285);
+  --secondary: oklch(0.3 0.014 285);
+  --secondary-foreground: oklch(0.99 0 0);
+  --accent: oklch(0.65 0.06 250);            /* muted slate */
+  --accent-foreground: oklch(0.99 0 0);
+  --destructive: oklch(0.74 0.24 27);
+  --destructive-foreground: oklch(0.99 0 0);
+
+  --field-coding: oklch(0.82 0.22 145);
+  --field-video: oklch(0.78 0.26 25);
+  --field-music: oklch(0.78 0.26 280);
+
+  /* Decorative tokens (dark variant) */
+  --grid-line: oklch(1 0 0 / 0.07);
+  --headline-from: oklch(0.82 0.22 50);
+  --headline-to: oklch(0.78 0.22 35);
+  --orb-violet-1: oklch(0.78 0.22 50 / 0.35);
+  --orb-violet-2: oklch(0.78 0.22 50 / 0.3);
+  --orb-violet-3: oklch(0.78 0.22 50 / 0.25);
+  --orb-cyan-1: oklch(0.7 0.06 250 / 0.22);
+  --orb-cyan-2: oklch(0.7 0.06 250 / 0.18);
+  --orb-coding: oklch(0.82 0.22 145 / 0.45);
+  --orb-video: oklch(0.78 0.26 25 / 0.45);
+  --orb-music: oklch(0.78 0.26 280 / 0.45);
+  --divider-glow: oklch(0.82 0.22 50 / 0.55);
+  --logo-to: oklch(0.78 0.22 50);
+  --portfolio-bg-from: oklch(0.22 0.01 285);
+  --portfolio-bg-to: oklch(0.13 0.005 285);
+}
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-field-coding: var(--field-coding);
+  --color-field-video: var(--field-video);
+  --color-field-music: var(--field-music);
+
+  --font-sans: var(--font-pretendard), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  ::selection {
+    background: color-mix(in oklch, var(--primary) 30%, transparent);
+  }
+}
+
+@layer components {
+  .prose-aicrew :where(h2) {
+    @apply mt-10 mb-4 text-2xl font-bold tracking-tight;
+  }
+  .prose-aicrew :where(h3) {
+    @apply mt-8 mb-3 text-xl font-semibold tracking-tight;
+  }
+  .prose-aicrew :where(p) {
+    @apply my-4 leading-relaxed text-foreground/85;
+  }
+  .prose-aicrew :where(ul) {
+    @apply my-4 space-y-1.5 pl-5 list-disc marker:text-muted-foreground;
+  }
+  .prose-aicrew :where(ol) {
+    @apply my-4 space-y-1.5 pl-5 list-decimal marker:text-muted-foreground;
+  }
+  .prose-aicrew :where(li) {
+    @apply leading-relaxed text-foreground/85;
+  }
+  .prose-aicrew :where(blockquote) {
+    @apply my-6 border-l-2 border-primary/50 pl-4 italic text-muted-foreground;
+  }
+  .prose-aicrew :where(blockquote p) {
+    @apply text-muted-foreground;
+  }
+  .prose-aicrew :where(a) {
+    @apply underline underline-offset-4 decoration-primary/40 hover:decoration-primary transition;
+  }
+  .prose-aicrew :where(strong) {
+    @apply font-semibold text-foreground;
+  }
+  .prose-aicrew :where(code) {
+    @apply rounded bg-muted px-1.5 py-0.5 text-[0.85em] font-mono;
+  }
+  .prose-aicrew :where(hr) {
+    @apply my-8 border-border/60;
+  }
+}
