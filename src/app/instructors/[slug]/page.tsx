@@ -5,6 +5,7 @@ import { instructors, portfolios } from "#content";
 import { Button } from "@/components/ui/button";
 import { AvatarBlock } from "@/components/site/avatar-block";
 import { FieldBadge } from "@/components/site/field-badge";
+import { ClassBadges } from "@/components/site/class-badges";
 import { SocialLinks } from "@/components/site/social-links";
 import { PortfolioCard } from "@/components/site/portfolio-card";
 import { SectionLabel } from "@/components/site/section-label";
@@ -72,7 +73,10 @@ export default async function InstructorPage({ params }: PageProps) {
               size="xl"
             />
             <div className="flex-1 space-y-6 max-w-3xl">
-              <FieldBadge specialty={instructor.specialty} />
+              <div className="flex flex-wrap items-center gap-2">
+                <FieldBadge specialty={instructor.specialty} />
+                <ClassBadges classes={instructor.classes} />
+              </div>
               <div>
                 <h1 className="text-5xl sm:text-7xl lg:text-8xl font-black tracking-[-0.04em] leading-[0.9]">
                   {instructor.name}

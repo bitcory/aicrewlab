@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Instructor } from "#content";
 import { AvatarBlock } from "@/components/site/avatar-block";
 import { FieldBadge } from "@/components/site/field-badge";
+import { ClassBadges } from "@/components/site/class-badges";
 import { ArrowUpRight } from "lucide-react";
 import { FIELDS } from "@/lib/fields";
 
@@ -28,7 +29,10 @@ export function InstructorCard({ instructor }: { instructor: Instructor }) {
       </div>
 
       <div className="relative mt-8 space-y-3">
-        <FieldBadge specialty={instructor.specialty} />
+        <div className="flex flex-wrap items-center gap-2">
+          <FieldBadge specialty={instructor.specialty} />
+          <ClassBadges classes={instructor.classes} />
+        </div>
         <h3 className="text-3xl sm:text-4xl font-black tracking-[-0.03em] leading-[0.95]">
           {instructor.name}
         </h3>

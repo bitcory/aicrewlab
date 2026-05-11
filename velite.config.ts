@@ -21,6 +21,7 @@ const instructors = defineCollection({
       role: s.string(),
       headline: s.string().max(140),
       specialty: s.enum(["coding", "video", "music"]),
+      classes: s.array(s.enum(["ZERO", "UP", "PRO"])).default([]),
       bio: s.string(),
       avatar: s.string().optional(),
       cover: s.string().optional(),

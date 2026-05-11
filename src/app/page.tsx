@@ -59,11 +59,11 @@ export default function HomePage() {
         </div>
 
         <div className="relative w-full px-4 sm:px-8 lg:px-12 pt-10 pb-16 lg:pt-24 lg:pb-32">
-          <SectionLabel index="00" className="mb-10">
+          <SectionLabel index="00" className="mb-10 !text-white/70 [&>span]:!text-white/50">
             AICREW Academy · 2026 Spring
           </SectionLabel>
 
-          <h1 className="text-[clamp(2rem,7vw,6rem)] font-black tracking-[-0.04em] leading-[1.1]">
+          <h1 className="text-[clamp(2rem,7vw,6rem)] font-black tracking-[-0.04em] leading-[1.1] text-white">
             AI로 만들고,
             <br />
             <span className="bg-clip-text text-transparent bg-[linear-gradient(135deg,var(--headline-from)_0%,var(--headline-to)_100%)]">
@@ -72,8 +72,8 @@ export default function HomePage() {
           </h1>
 
           <div className="mt-12 max-w-3xl">
-            <p className="text-lg sm:text-xl text-foreground/75 leading-relaxed">
-              AICREW는 AI를 가르치는 게 아니라, <span className="font-semibold text-foreground">AI로 만들게 하는</span> 아카데미예요.
+            <p className="text-lg sm:text-xl text-white/80 leading-relaxed">
+              AICREW는 AI를 가르치는 게 아니라, <span className="font-semibold text-white">AI로 만들게 하는</span> 아카데미예요.
               현장에서 매일 AI로 코딩하고, 영상을 만들고, 음악을 만드는 사람들이 직접 설계한 커리큘럼.
             </p>
             <div className="mt-10 flex flex-wrap items-center gap-3 sm:gap-4">
