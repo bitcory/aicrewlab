@@ -126,8 +126,8 @@
   --color-field-video: var(--field-video);
   --color-field-music: var(--field-music);
 
-  --font-sans: var(--font-pretendard), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-sans: var(--font-paperlogy), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
 }
 
 @layer base {
