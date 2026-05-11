@@ -56,9 +56,6 @@ export default function HomePage() {
             sizes="(min-width: 1024px) 100vw, 100vw"
             className="object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-background/55 via-background/30 to-background/65" />
-          <div className="hidden lg:block absolute top-[-20%] left-1/2 -translate-x-1/2 size-[1100px] rounded-full bg-[radial-gradient(circle_at_center,var(--orb-violet-1)_0%,transparent_60%)] mix-blend-overlay opacity-70" />
-          <div className="hidden lg:block absolute top-[10%] right-[-10%] size-[600px] rounded-full bg-[radial-gradient(circle_at_center,var(--orb-cyan-1)_0%,transparent_65%)] mix-blend-overlay opacity-70" />
         </div>
 
         <div className="relative w-full px-4 sm:px-8 lg:px-12 pt-10 pb-16 lg:pt-32 lg:pb-52">
