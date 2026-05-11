@@ -249,14 +249,6 @@ export function Header() {
             <ThemeToggle />
             <Button
               asChild
-              variant="outline"
-              size="default"
-              className="hidden sm:inline-flex h-10 rounded-full border-2 bg-background px-5 text-sm font-semibold hover:bg-background"
-            >
-              <Link href="/about">소개</Link>
-            </Button>
-            <Button
-              asChild
               size="default"
               className="h-10 rounded-full bg-foreground text-background hover:bg-foreground/90 px-5 text-sm font-semibold"
             >

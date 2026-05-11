@@ -66,7 +66,7 @@ export default function HomePage() {
             AICREW Academy · 2026 Spring
           </SectionLabel>
 
-          <h1 className="text-[clamp(2.25rem,9vw,8rem)] font-black tracking-[-0.04em] leading-[1.1]">
+          <h1 className="text-[clamp(2rem,7vw,6rem)] font-black tracking-[-0.04em] leading-[1.1]">
             AI로 만들고,
             <br />
             <span className="bg-clip-text text-transparent bg-[linear-gradient(135deg,var(--headline-from)_0%,var(--headline-to)_100%)]">
