@@ -3,6 +3,7 @@ compatibility_date = "2026-05-01"
 compatibility_flags = ["nodejs_compat"]
 
 main = ".open-next/worker.js"
+workers_dev = true
 
 [assets]
 directory = ".open-next/assets"
@@ -11,13 +12,17 @@ binding = "ASSETS"
 [observability]
 enabled = true
 
+# 커스텀 도메인 — Cloudflare가 DNS·SSL 자동 처리
+[[routes]]
+pattern = "aicrew.rnpick.com"
+custom_domain = true
+
 # D1 (gallery DB) — wrangler d1 create aicrew-gallery 후 database_id 채우기
 [[d1_databases]]
 binding = "DB"
 database_name = "aicrew-gallery"
-database_id = "REPLACE_ME"
+database_id = "b5091444-66c0-4d22-aab3-7c158454c57a"
 migrations_dir = "migrations"
 
-# 관리자 비밀번호 (운영: wrangler secret put ADMIN_PASSWORD)
-[vars]
-ADMIN_PASSWORD = "change-me-locally"
+# 관리자 비밀번호는 wrangler secret put ADMIN_PASSWORD로 등록.
+# 로컬 dev용 비밀번호는 .dev.vars 파일에 별도 보관 (gitignore 됨).

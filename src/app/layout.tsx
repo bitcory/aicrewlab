@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Header } from "@/components/header";
@@ -58,19 +58,77 @@ const paperlogy = localFont({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://aicrew.academy"),
+  applicationName: "AICREW 아카데미",
   title: {
-    default: "AICREW 아카데미",
+    default: "AICREW 아카데미 | AI로 만들고, AI로 성장합니다",
     template: "%s | AICREW 아카데미",
   },
   description:
-    "AI 코딩, AI 영상제작, AI 음악제작을 가르치는 크리에이티브 AI 아카데미. 현장에서 활동하는 강사진이 직접 만든 커리큘럼으로 빠르게 실무 감각을 익히세요.",
-  metadataBase: new URL("https://aicrew.academy"),
+    "AI 코딩, AI 영상제작, AI 음악제작을 실제 결과물로 배우는 크리에이티브 AI 아카데미. 현장에서 활동하는 강사진이 직접 만든 커리큘럼으로 실무 감각을 익히세요.",
+  keywords: [
+    "AICREW",
+    "AICREW 아카데미",
+    "AI 아카데미",
+    "AI 코딩",
+    "AI 영상제작",
+    "AI 음악제작",
+    "생성형 AI 강의",
+    "크리에이티브 AI",
+    "2026 봄학기",
+  ],
+  authors: [{ name: "AICREW Academy" }],
+  creator: "AICREW Academy",
+  publisher: "AICREW Academy",
+  category: "education",
+  alternates: {
+    canonical: "/",
+  },
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/aicrew-logo.png",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
   openGraph: {
-    title: "AICREW 아카데미",
-    description: "AI로 만들고, AI로 성장합니다.",
+    title: "AICREW 아카데미 | AI로 만들고, AI로 성장합니다",
+    description:
+      "AI 코딩, AI 영상제작, AI 음악제작을 실제 결과물로 배우는 크리에이티브 AI 아카데미.",
+    url: "/",
+    siteName: "AICREW 아카데미",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "AICREW 아카데미 - AI로 만들고, AI로 성장합니다",
+      },
+    ],
     locale: "ko_KR",
     type: "website",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "AICREW 아카데미 | AI로 만들고, AI로 성장합니다",
+    description:
+      "AI 코딩, AI 영상제작, AI 음악제작을 실제 결과물로 배우는 크리에이티브 AI 아카데미.",
+    images: ["/og-image.png"],
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#0f0f10",
+  colorScheme: "dark light",
 };
 
 export default function RootLayout({
