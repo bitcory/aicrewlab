@@ -1,8 +1,5 @@
 import type { NextConfig } from "next";
 import path from "node:path";
-import { initOpenNextCloudflareForDev } from "@opennextjs/cloudflare";
-
-initOpenNextCloudflareForDev();
 
 const nextConfig: NextConfig = {
   turbopack: {
