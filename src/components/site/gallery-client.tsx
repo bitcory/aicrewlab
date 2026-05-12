@@ -3,16 +3,17 @@
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { useMemo } from "react";
 import { cn } from "@/lib/utils";
-import {
-  GALLERY_VIDEOS,
-  GALLERY_IMAGES,
-  CLASS_LEVELS,
-  type GalleryVideo,
-  type GalleryImage,
-  type ClassLevel,
-} from "@/lib/gallery";
+import type { GalleryItem } from "@/lib/db";
+import { LikeButton } from "@/components/site/like-button";
 import { ImageIcon, Video as VideoIcon } from "lucide-react";
 
+const CLASS_LEVELS = {
+  zero: { label: "제로 클래스", short: "ZERO" },
+  up: { label: "업 클래스", short: "UP" },
+  pro: { label: "프로 클래스", short: "PRO" },
+} as const;
+
+type ClassLevel = keyof typeof CLASS_LEVELS;
 type Tab = "videos" | "images";
 type LevelFilter = "all" | ClassLevel;
 
@@ -28,17 +29,21 @@ const LEVEL_FILTERS: Array<{ value: LevelFilter; label: string }> = [
   { value: "pro", label: CLASS_LEVELS.pro.label },
 ];
 
-export function GalleryClient() {
+export function GalleryClient({ items }: { items: GalleryItem[] }) {
   const router = useRouter();
   const pathname = usePathname();
   const params = useSearchParams();
 
+  const videos = useMemo(() => items.filter((i) => i.kind === "video"), [items]);
+  const images = useMemo(() => items.filter((i) => i.kind === "image"), [items]);
+
   const rawTab = params.get("tab");
   const activeTab: Tab = rawTab === "images" ? "images" : "videos";
-
   const rawLevel = params.get("level");
   const activeLevel: LevelFilter =
-    rawLevel && rawLevel in CLASS_LEVELS ? (rawLevel as ClassLevel) : "all";
+    rawLevel === "zero" || rawLevel === "up" || rawLevel === "pro"
+      ? rawLevel
+      : "all";
 
   const setParam = (key: "tab" | "level", value: string | null) => {
     const sp = new URLSearchParams(params);
@@ -48,37 +53,21 @@ export function GalleryClient() {
     router.replace(`${pathname}${q ? `?${q}` : ""}`, { scroll: false });
   };
 
-  const counts = useMemo(
-    () => ({
-      videos: GALLERY_VIDEOS.length,
-      images: GALLERY_IMAGES.length,
-    }),
-    [],
-  );
+  const counts = { videos: videos.length, images: images.length };
 
-  const levelCounts = useMemo(() => {
-    const source = activeTab === "videos" ? GALLERY_VIDEOS : GALLERY_IMAGES;
-    return {
-      all: source.length,
-      zero: source.filter((x) => x.level === "zero").length,
-      up: source.filter((x) => x.level === "up").length,
-      pro: source.filter((x) => x.level === "pro").length,
-    } as Record<LevelFilter, number>;
-  }, [activeTab]);
+  const source = activeTab === "videos" ? videos : images;
+  const levelCounts: Record<LevelFilter, number> = {
+    all: source.length,
+    zero: source.filter((x) => x.level === "zero").length,
+    up: source.filter((x) => x.level === "up").length,
+    pro: source.filter((x) => x.level === "pro").length,
+  };
 
-  const filteredVideos = useMemo(() => {
-    if (activeLevel === "all") return GALLERY_VIDEOS;
-    return GALLERY_VIDEOS.filter((v) => v.level === activeLevel);
-  }, [activeLevel]);
-
-  const filteredImages = useMemo(() => {
-    if (activeLevel === "all") return GALLERY_IMAGES;
-    return GALLERY_IMAGES.filter((i) => i.level === activeLevel);
-  }, [activeLevel]);
+  const filtered =
+    activeLevel === "all" ? source : source.filter((x) => x.level === activeLevel);
 
   return (
     <>
-      {/* Top tabs: videos / images */}
       <div
         role="tablist"
         className="flex flex-wrap items-center gap-px mb-8 border-2 border-border self-start w-fit"
@@ -114,11 +103,9 @@ export function GalleryClient() {
         })}
       </div>
 
-      {/* Sub filter: class levels */}
       <div className="flex flex-wrap items-center gap-2 mb-12">
         {LEVEL_FILTERS.map((f) => {
           const isActive = activeLevel === f.value;
-          const count = levelCounts[f.value];
           return (
             <button
               key={f.value}
@@ -138,113 +125,90 @@ export function GalleryClient() {
                   isActive ? "opacity-80" : "text-muted-foreground",
                 )}
               >
-                {String(count).padStart(2, "0")}
+                {String(levelCounts[f.value]).padStart(2, "0")}
               </span>
             </button>
           );
         })}
       </div>
 
-      {activeTab === "videos" ? (
-        <VideoGrid videos={filteredVideos} />
+      {filtered.length === 0 ? (
+        <EmptyState
+          message={
+            activeTab === "videos"
+              ? "이 클래스에서 만든 영상이 아직 없어요."
+              : "이미지는 곧 추가됩니다."
+          }
+        />
       ) : (
-        <ImageGrid images={filteredImages} />
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {filtered.map((item) => (
+            <GalleryCard key={item.id} item={item} />
+          ))}
+        </div>
       )}
     </>
   );
 }
 
-function VideoGrid({ videos }: { videos: GalleryVideo[] }) {
-  if (videos.length === 0) {
-    return <EmptyState message="이 클래스에서 만든 영상이 아직 없어요." />;
-  }
+function GalleryCard({ item }: { item: GalleryItem }) {
+  const level = item.level ? CLASS_LEVELS[item.level] : null;
   return (
-    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {videos.map((v) => {
-        const level = CLASS_LEVELS[v.level];
-        return (
-          <article
-            key={v.slug}
-            className="group border-2 border-border bg-background overflow-hidden"
-          >
-            <div className="relative aspect-video bg-black">
-              <iframe
-                src={`https://www.youtube-nocookie.com/embed/${v.youtubeId}?rel=0`}
-                title={v.title}
-                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                loading="lazy"
-                className="absolute inset-0 size-full"
-              />
-            </div>
-            <div className="p-6 space-y-3">
-              <div className="flex flex-wrap items-center gap-2 text-[11px] font-mono uppercase tracking-[0.2em]">
-                <span className="inline-flex items-center gap-1.5 border-2 border-border px-2 py-1 text-foreground/80">
-                  <span className="size-1.5 rounded-full bg-primary" />
-                  {level.short} CLASS
-                </span>
-                {v.stage && (
-                  <span className="text-muted-foreground">{v.stage}</span>
-                )}
-              </div>
-              <h3 className="text-xl sm:text-2xl font-black tracking-[-0.02em] leading-tight">
-                {v.title}
-              </h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                {v.description}
-              </p>
-            </div>
-          </article>
-        );
-      })}
-    </div>
-  );
-}
+    <article className="group border-2 border-border bg-background overflow-hidden">
+      {item.kind === "video" ? (
+        <div className="relative aspect-video bg-black">
+          <iframe
+            src={`https://www.youtube-nocookie.com/embed/${item.src}?rel=0`}
+            title={item.title}
+            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            loading="lazy"
+            className="absolute inset-0 size-full"
+          />
+        </div>
+      ) : (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={item.src}
+          alt={item.title}
+          className="w-full aspect-video object-cover"
+        />
+      )}
 
-function ImageGrid({ images }: { images: GalleryImage[] }) {
-  if (images.length === 0) {
-    return (
-      <EmptyState message="이미지는 곧 추가됩니다. 직접 올린 이미지로 채워질 예정이에요." />
-    );
-  }
-  return (
-    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {images.map((im) => {
-        const level = im.level ? CLASS_LEVELS[im.level] : null;
-        return (
-          <article
-            key={im.slug}
-            className="group border-2 border-border bg-background overflow-hidden"
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={im.src}
-              alt={im.title}
-              className="w-full aspect-video object-cover"
-            />
-            <div className="p-6 space-y-2">
-              {level && (
-                <div className="flex flex-wrap items-center gap-2 text-[11px] font-mono uppercase tracking-[0.2em]">
-                  <span className="inline-flex items-center gap-1.5 border-2 border-border px-2 py-1 text-foreground/80">
-                    <span className="size-1.5 rounded-full bg-primary" />
-                    {level.short} CLASS
-                  </span>
-                  {im.stage && (
-                    <span className="text-muted-foreground">{im.stage}</span>
-                  )}
-                </div>
-              )}
-              <h3 className="text-xl font-black tracking-[-0.02em]">{im.title}</h3>
-              {im.description && (
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  {im.description}
-                </p>
-              )}
-            </div>
-          </article>
-        );
-      })}
-    </div>
+      <div className="p-6 space-y-3">
+        {(level || item.stage) && (
+          <div className="flex flex-wrap items-center gap-2 text-[11px] font-mono uppercase tracking-[0.2em]">
+            {level && (
+              <span className="inline-flex items-center gap-1.5 border-2 border-border px-2 py-1 text-foreground/80">
+                <span className="size-1.5 rounded-full bg-primary" />
+                {level.short} CLASS
+              </span>
+            )}
+            {item.stage && (
+              <span className="text-muted-foreground">{item.stage}</span>
+            )}
+          </div>
+        )}
+        <h3 className="text-xl sm:text-2xl font-black tracking-[-0.02em] leading-tight">
+          {item.title}
+        </h3>
+        {item.description && (
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            {item.description}
+          </p>
+        )}
+        <div className="flex items-center justify-between pt-2">
+          {item.creator ? (
+            <span className="text-sm font-semibold text-foreground/80">
+              by {item.creator}
+            </span>
+          ) : (
+            <span />
+          )}
+          <LikeButton id={item.id} initialLikes={item.likes} />
+        </div>
+      </div>
+    </article>
   );
 }
 

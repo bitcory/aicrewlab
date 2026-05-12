@@ -10,3 +10,14 @@ binding = "ASSETS"
 
 [observability]
 enabled = true
+
+# D1 (gallery DB) — wrangler d1 create aicrew-gallery 후 database_id 채우기
+[[d1_databases]]
+binding = "DB"
+database_name = "aicrew-gallery"
+database_id = "REPLACE_ME"
+migrations_dir = "migrations"
+
+# 관리자 비밀번호 (운영: wrangler secret put ADMIN_PASSWORD)
+[vars]
+ADMIN_PASSWORD = "change-me-locally"

@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import type { Metadata } from "next";
 import { SectionLabel } from "@/components/site/section-label";
 import { GalleryClient } from "@/components/site/gallery-client";
-import { GALLERY_VIDEOS, GALLERY_IMAGES } from "@/lib/gallery";
+import { listGalleryItems } from "@/lib/db";
 
 export const metadata: Metadata = {
   title: "갤러리",
@@ -10,8 +10,11 @@ export const metadata: Metadata = {
     "AICREW 강사진과 학생들이 만든 영상·이미지 작품 갤러리. PRO 클래스 결과물을 만나보세요.",
 };
 
-export default function GalleryPage() {
-  const total = GALLERY_VIDEOS.length + GALLERY_IMAGES.length;
+export const dynamic = "force-dynamic";
+
+export default async function GalleryPage() {
+  const items = await listGalleryItems();
+  const total = items.length;
 
   return (
     <>
@@ -52,7 +55,7 @@ export default function GalleryPage() {
       <section className="w-full">
         <div className="w-full px-4 sm:px-8 lg:px-12 py-16 sm:py-24">
           <Suspense>
-            <GalleryClient />
+            <GalleryClient items={items} />
           </Suspense>
         </div>
       </section>
