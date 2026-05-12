@@ -58,7 +58,7 @@ const paperlogy = localFont({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://aicrew.academy"),
+  metadataBase: new URL("https://aicrew.rnpick.com"),
   applicationName: "AICREW 아카데미",
   title: {
     default: "AICREW 아카데미 | AI로 만들고, AI로 성장합니다",
