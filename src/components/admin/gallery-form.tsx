@@ -57,14 +57,14 @@ export function GalleryForm({ action, initial, submitLabel }: Props) {
       <div>
         <label className="block space-y-2">
           <span className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
-            영상: YouTube ID (예: dQw4w9WgXcQ) · 이미지: 이미지 URL
+            영상: YouTube URL 또는 ID · 이미지: 이미지 URL
           </span>
           <input
             type="text"
             name="src"
             defaultValue={initial?.src ?? ""}
             required
-            placeholder="XUPgogriS-8 또는 https://example.com/image.jpg"
+            placeholder="https://youtu.be/… 또는 XUPgogriS-8 또는 https://example.com/image.jpg"
             className="w-full bg-muted/30 border-2 border-border focus:border-foreground px-4 py-2.5 text-base outline-none font-mono text-sm"
           />
         </label>

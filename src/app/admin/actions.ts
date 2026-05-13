@@ -35,6 +35,28 @@ export async function logoutAction(): Promise<void> {
   redirect("/admin/login");
 }
 
+const YT_ID = /^[A-Za-z0-9_-]{11}$/;
+
+function extractYouTubeId(input: string): string {
+  const s = input.trim();
+  if (YT_ID.test(s)) return s;
+  try {
+    const url = new URL(s);
+    if (url.hostname.endsWith("youtu.be")) {
+      const id = url.pathname.slice(1).split("/")[0];
+      if (YT_ID.test(id)) return id;
+    }
+    const v = url.searchParams.get("v");
+    if (v && YT_ID.test(v)) return v;
+    const m = url.pathname.match(/\/(?:embed|shorts|v)\/([A-Za-z0-9_-]{11})/);
+    if (m) return m[1];
+  } catch {
+    // not a URL — fall through
+  }
+  const m = s.match(/[A-Za-z0-9_-]{11}/);
+  return m ? m[0] : s;
+}
+
 function parseInput(formData: FormData): GalleryItemInput {
   const kind = String(formData.get("kind") ?? "image") as "video" | "image";
   const levelRaw = String(formData.get("level") ?? "");
@@ -43,6 +65,7 @@ function parseInput(formData: FormData): GalleryItemInput {
       ? levelRaw
       : null;
   const stage = String(formData.get("stage") ?? "").trim() || null;
+  const rawSrc = String(formData.get("src") ?? "").trim();
   return {
     slug: String(formData.get("slug") ?? "")
       .trim()
@@ -52,7 +75,7 @@ function parseInput(formData: FormData): GalleryItemInput {
     title: String(formData.get("title") ?? "").trim(),
     description: String(formData.get("description") ?? "").trim(),
     creator: String(formData.get("creator") ?? "").trim(),
-    src: String(formData.get("src") ?? "").trim(),
+    src: kind === "video" ? extractYouTubeId(rawSrc) : rawSrc,
     level,
     stage,
     sort_order: Number(formData.get("sort_order") ?? 100),
