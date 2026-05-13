@@ -57,6 +57,10 @@ function extractYouTubeId(input: string): string {
   return m ? m[0] : s;
 }
 
+function generateSlug(): string {
+  return `item-${Date.now().toString(36)}${Math.random().toString(36).slice(2, 6)}`;
+}
+
 function parseInput(formData: FormData): GalleryItemInput {
   const kind = String(formData.get("kind") ?? "image") as "video" | "image";
   const levelRaw = String(formData.get("level") ?? "");
@@ -66,11 +70,9 @@ function parseInput(formData: FormData): GalleryItemInput {
       : null;
   const stage = String(formData.get("stage") ?? "").trim() || null;
   const rawSrc = String(formData.get("src") ?? "").trim();
+  const rawSlug = String(formData.get("slug") ?? "").trim();
   return {
-    slug: String(formData.get("slug") ?? "")
-      .trim()
-      .toLowerCase()
-      .replace(/[^a-z0-9-]/g, "-"),
+    slug: rawSlug || generateSlug(),
     kind,
     title: String(formData.get("title") ?? "").trim(),
     description: String(formData.get("description") ?? "").trim(),
@@ -85,7 +87,7 @@ function parseInput(formData: FormData): GalleryItemInput {
 export async function createGalleryAction(formData: FormData): Promise<void> {
   await requireAuth();
   const input = parseInput(formData);
-  if (!input.slug || !input.title || !input.src) {
+  if (!input.title || !input.src) {
     redirect("/admin/gallery?error=missing");
   }
   await createGalleryItem(input);

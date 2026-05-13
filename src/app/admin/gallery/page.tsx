@@ -91,7 +91,6 @@ export default async function AdminGalleryPage({
                   </td>
                   <td className="px-4 py-3 font-semibold">
                     {item.title}
-                    <p className="font-mono text-xs text-muted-foreground mt-0.5">{item.slug}</p>
                   </td>
                   <td className="px-4 py-3 text-muted-foreground">{item.creator || "—"}</td>
                   <td className="px-4 py-3 uppercase font-mono text-xs">{item.level ?? "—"}</td>

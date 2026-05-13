@@ -11,10 +11,9 @@ type Props = {
 export function GalleryForm({ action, initial, submitLabel }: Props) {
   return (
     <form action={action} className="space-y-6 max-w-2xl">
-      <div className="grid grid-cols-2 gap-4">
-        <Field label="Slug (URL용, 영문/숫자/-)" name="slug" defaultValue={initial?.slug} required />
-        <Field label="정렬 순서 (낮을수록 앞)" name="sort_order" type="number" defaultValue={String(initial?.sort_order ?? 100)} />
-      </div>
+      <input type="hidden" name="slug" defaultValue={initial?.slug ?? ""} />
+
+      <Field label="정렬 순서 (낮을수록 앞)" name="sort_order" type="number" defaultValue={String(initial?.sort_order ?? 100)} />
 
       <div>
         <label className="block space-y-2">
