@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { ImageUploadField } from "@/components/admin/image-upload-field";
 import type { GalleryItem } from "@/lib/db";
 
 type Props = {
@@ -53,21 +54,12 @@ export function GalleryForm({ action, initial, submitLabel }: Props) {
         defaultValue={initial?.creator}
       />
 
-      <div>
-        <label className="block space-y-2">
-          <span className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
-            영상: YouTube URL 또는 ID · 이미지: 이미지 URL
-          </span>
-          <input
-            type="text"
-            name="src"
-            defaultValue={initial?.src ?? ""}
-            required
-            placeholder="https://youtu.be/… 또는 XUPgogriS-8 또는 https://example.com/image.jpg"
-            className="w-full bg-muted/30 border-2 border-border focus:border-foreground px-4 py-2.5 text-base outline-none font-mono text-sm"
-          />
-        </label>
-      </div>
+      <ImageUploadField
+        name="src"
+        defaultValue={initial?.src ?? ""}
+        hint="영상: YouTube URL 또는 ID · 이미지: 파일 업로드 또는 URL"
+        placeholder="https://youtu.be/… 또는 XUPgogriS-8 또는 /img/abc.png"
+      />
 
       <div className="grid grid-cols-2 gap-4">
         <div>

@@ -42,7 +42,9 @@ export default async function InstructorPage({ params }: PageProps) {
       ? "bg-[var(--orb-coding)]"
       : instructor.specialty === "video"
       ? "bg-[var(--orb-video)]"
-      : "bg-[var(--orb-music)]";
+      : instructor.specialty === "music"
+      ? "bg-[var(--orb-music)]"
+      : "bg-[radial-gradient(circle,oklch(0.8_0.16_85)_0%,transparent_70%)]";
 
   return (
     <article>
@@ -71,6 +73,7 @@ export default async function InstructorPage({ params }: PageProps) {
               specialty={instructor.specialty}
               avatar={instructor.avatar}
               size="xl"
+              variant="portrait"
             />
             <div className="flex-1 space-y-6 max-w-3xl">
               <div className="flex flex-wrap items-center gap-2">

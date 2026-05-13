@@ -6,20 +6,35 @@ export function AvatarBlock({
   specialty,
   avatar,
   size = "md",
+  variant = "circle",
   className,
 }: {
   name: string;
   specialty: Specialty;
   avatar?: string;
   size?: "sm" | "md" | "lg" | "xl";
+  variant?: "circle" | "portrait";
   className?: string;
 }) {
-  const dims = {
-    sm: "size-10 text-sm",
-    md: "size-14 text-base",
-    lg: "size-20 text-xl",
-    xl: "size-28 text-3xl",
-  }[size];
+  const isPortrait = variant === "portrait";
+
+  const dims = isPortrait
+    ? {
+        sm: "w-16 h-24 text-sm",
+        md: "w-24 h-32 text-base",
+        lg: "w-40 h-56 text-xl",
+        xl: "w-72 h-96 sm:w-80 sm:h-[28rem] lg:w-96 lg:h-[32rem] text-3xl",
+      }[size]
+    : {
+        sm: "size-10 text-sm",
+        md: "size-14 text-base",
+        lg: "size-20 text-xl",
+        xl: "size-28 text-3xl",
+      }[size];
+
+  const shape = isPortrait
+    ? "border-2 border-border"
+    : "rounded-full border border-border/40";
 
   const gradient = FIELDS[specialty].gradient;
 
@@ -30,7 +45,8 @@ export function AvatarBlock({
         src={avatar}
         alt={name}
         className={cn(
-          "rounded-full object-cover border border-border/40 shadow-sm",
+          "object-cover shadow-sm shrink-0",
+          shape,
           dims,
           className,
         )}
@@ -42,7 +58,8 @@ export function AvatarBlock({
     <div
       aria-label={name}
       className={cn(
-        "rounded-full grid place-items-center text-primary-foreground font-bold shadow-sm border border-border/30",
+        "grid place-items-center text-primary-foreground font-bold shadow-sm shrink-0",
+        isPortrait ? shape : "rounded-full border border-border/30",
         gradient,
         dims,
         className,

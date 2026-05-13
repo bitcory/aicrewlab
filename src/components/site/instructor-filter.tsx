@@ -3,33 +3,39 @@
 import { useMemo } from "react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import type { Instructor } from "#content";
-import { FIELDS, type Specialty } from "@/lib/fields";
+import { FIELDS } from "@/lib/fields";
 import { InstructorCard } from "@/components/site/instructor-card";
 import { cn } from "@/lib/utils";
 
-const FILTERS: Array<{ value: "all" | Specialty; label: string }> = [
+type FilterValue = "all" | "coding" | "video" | "music";
+
+const FILTERS: Array<{ value: FilterValue; label: string }> = [
   { value: "all", label: "전체" },
   { value: "coding", label: FIELDS.coding.label },
   { value: "video", label: FIELDS.video.label },
   { value: "music", label: FIELDS.music.label },
 ];
 
+function matchesFilter(instructor: Instructor, filter: FilterValue): boolean {
+  if (filter === "all") return true;
+  return instructor.specialty === filter || instructor.specialty === "master";
+}
+
 export function InstructorFilter({ all }: { all: Instructor[] }) {
   const router = useRouter();
   const pathname = usePathname();
   const params = useSearchParams();
   const raw = params.get("field");
-  const active = (FILTERS.find((f) => f.value === raw)?.value ?? "all") as
-    | "all"
-    | Specialty;
+  const active: FilterValue =
+    FILTERS.find((f) => f.value === raw)?.value ?? "all";
 
   const list = useMemo(() => {
-    const filtered =
-      active === "all" ? all : all.filter((i) => i.specialty === active);
-    return filtered.sort((a, b) => a.order - b.order);
+    return all
+      .filter((i) => matchesFilter(i, active))
+      .sort((a, b) => a.order - b.order);
   }, [active, all]);
 
-  const setActive = (value: "all" | Specialty) => {
+  const setActive = (value: FilterValue) => {
     const sp = new URLSearchParams(params);
     if (value === "all") sp.delete("field");
     else sp.set("field", value);
@@ -44,10 +50,7 @@ export function InstructorFilter({ all }: { all: Instructor[] }) {
         className="flex flex-wrap items-center gap-px mb-10 border-2 border-border self-start w-fit"
       >
         {FILTERS.map((f) => {
-          const count =
-            f.value === "all"
-              ? all.length
-              : all.filter((i) => i.specialty === f.value).length;
+          const count = all.filter((i) => matchesFilter(i, f.value)).length;
           return (
             <button
               key={f.value}

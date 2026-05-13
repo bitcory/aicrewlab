@@ -5,6 +5,7 @@ import { useMemo } from "react";
 import { cn } from "@/lib/utils";
 import type { GalleryItem } from "@/lib/db";
 import { LikeButton } from "@/components/site/like-button";
+import { GalleryImageModal } from "@/components/site/gallery-image-modal";
 import { ImageIcon, Video as VideoIcon } from "lucide-react";
 
 const CLASS_LEVELS = {
@@ -167,12 +168,20 @@ function GalleryCard({ item }: { item: GalleryItem }) {
           />
         </div>
       ) : (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
-          src={item.src}
-          alt={item.title}
-          className="w-full aspect-video object-cover"
-        />
+        <GalleryImageModal item={item}>
+          <button
+            type="button"
+            className="block w-full overflow-hidden cursor-zoom-in"
+            aria-label={`${item.title} 자세히 보기`}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={item.src}
+              alt={item.title}
+              className="w-full aspect-video object-cover transition-transform group-hover:scale-[1.02]"
+            />
+          </button>
+        </GalleryImageModal>
       )}
 
       <div className="p-6 space-y-3">

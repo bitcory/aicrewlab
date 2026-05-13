@@ -1,4 +1,4 @@
-export type Specialty = "coding" | "video" | "music";
+export type Specialty = "coding" | "video" | "music" | "master";
 
 export const FIELDS: Record<
   Specialty,
@@ -47,6 +47,18 @@ export const FIELDS: Record<
     textColor: "text-[oklch(0.72_0.22_280)]",
     badgeClass:
       "bg-[color-mix(in_oklch,oklch(0.72_0.22_280)_18%,transparent)] text-[oklch(0.72_0.22_280)] border-[color-mix(in_oklch,oklch(0.72_0.22_280)_30%,transparent)]",
+  },
+  master: {
+    slug: "master",
+    label: "마스터 강사",
+    short: "Master",
+    description:
+      "코딩·영상·음악 전 트랙을 아우르며 강의 전체를 설계하는 마스터 강사.",
+    gradient:
+      "bg-[linear-gradient(135deg,oklch(0.82_0.15_90)_0%,oklch(0.65_0.18_35)_100%)]",
+    textColor: "text-[oklch(0.8_0.16_85)]",
+    badgeClass:
+      "bg-[color-mix(in_oklch,oklch(0.8_0.16_85)_18%,transparent)] text-[oklch(0.8_0.16_85)] border-[color-mix(in_oklch,oklch(0.8_0.16_85)_35%,transparent)]",
   },
 };
 

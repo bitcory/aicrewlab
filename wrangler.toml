@@ -24,5 +24,10 @@ database_name = "aicrew-gallery"
 database_id = "b5091444-66c0-4d22-aab3-7c158454c57a"
 migrations_dir = "migrations"
 
+# R2 (gallery 이미지 호스팅)
+[[r2_buckets]]
+binding = "BUCKET"
+bucket_name = "aicrew-gallery"
+
 # 관리자 비밀번호는 wrangler secret put ADMIN_PASSWORD로 등록.
 # 로컬 dev용 비밀번호는 .dev.vars 파일에 별도 보관 (gitignore 됨).
