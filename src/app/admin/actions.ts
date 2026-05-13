@@ -57,6 +57,21 @@ function extractYouTubeId(input: string): string {
   return m ? m[0] : s;
 }
 
+function normalizeImageUrl(input: string): string {
+  const s = input.trim();
+  try {
+    const url = new URL(s);
+    if (url.hostname.endsWith("dropbox.com")) {
+      url.searchParams.set("raw", "1");
+      url.searchParams.delete("dl");
+      return url.toString();
+    }
+  } catch {
+    // not a URL — return as-is
+  }
+  return s;
+}
+
 function generateSlug(): string {
   return `item-${Date.now().toString(36)}${Math.random().toString(36).slice(2, 6)}`;
 }
@@ -77,7 +92,7 @@ function parseInput(formData: FormData): GalleryItemInput {
     title: String(formData.get("title") ?? "").trim(),
     description: String(formData.get("description") ?? "").trim(),
     creator: String(formData.get("creator") ?? "").trim(),
-    src: kind === "video" ? extractYouTubeId(rawSrc) : rawSrc,
+    src: kind === "video" ? extractYouTubeId(rawSrc) : normalizeImageUrl(rawSrc),
     level,
     stage,
     sort_order: Number(formData.get("sort_order") ?? 100),
