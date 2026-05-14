@@ -182,12 +182,12 @@ const NAV: NavItem[] = [
         items: [
           {
             label: "강사 지원",
-            href: "mailto:apply@aicrew.academy",
+            href: "mailto:aitoolbee79@gmail.com",
             desc: "함께 가르치고 싶다면",
           },
           {
             label: "일반 문의",
-            href: "mailto:hello@aicrew.academy",
+            href: "mailto:aitoolbee79@gmail.com",
             desc: "수강·제휴·언론 문의",
           },
         ],

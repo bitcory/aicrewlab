@@ -58,8 +58,8 @@ export function Footer() {
             </li>
             <li>
               <span className="text-muted-foreground">Apply · </span>
-              <a href="mailto:apply@aicrew.academy" className="text-foreground/70 hover:text-foreground transition-colors">
-                apply@aicrew.academy
+              <a href="mailto:aitoolbee79@gmail.com" className="text-foreground/70 hover:text-foreground transition-colors">
+                aitoolbee79@gmail.com
               </a>
             </li>
           </ul>
