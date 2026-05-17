@@ -29,7 +29,7 @@ export const FIELDS: Record<
     label: "AI 영상제작",
     short: "Video",
     description:
-      "Runway·Sora·Kling으로 풀 영상 만드는 워크플로우. 광고·콘텐츠·아트 어디든.",
+      "Grok·Kling·Seedance등으로 풀 영상 만드는 워크플로우. 광고·콘텐츠·아트 어디든.",
     gradient:
       "bg-[linear-gradient(135deg,oklch(0.65_0.24_25)_0%,oklch(0.55_0.22_330)_100%)]",
     textColor: "text-[oklch(0.7_0.22_25)]",
@@ -41,7 +41,7 @@ export const FIELDS: Record<
     label: "AI 음악제작",
     short: "Music",
     description:
-      "Suno·Udio·MusicGen을 DAW에 자연스럽게 녹이는 법. 데모 부스트부터 마스터링까지.",
+      "Suno·Udio등을 통해 음원수익을 창출하는 방법 및 수익화과정.",
     gradient:
       "bg-[linear-gradient(135deg,oklch(0.65_0.2_280)_0%,oklch(0.6_0.22_320)_100%)]",
     textColor: "text-[oklch(0.72_0.22_280)]",

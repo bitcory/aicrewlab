@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { Logo } from "@/components/site/logo";
@@ -24,7 +25,15 @@ type NavItem = {
   href: string;
   intro: { title: string; desc: string };
   columns: DropdownColumn[];
-  featured: { label: string; title: string; desc: string; href: string; cta: string };
+  featured: {
+    label: string;
+    title: string;
+    desc: string;
+    href: string;
+    cta: string;
+    image: string;
+    imageAlt: string;
+  };
 };
 
 const NAV: NavItem[] = [
@@ -73,6 +82,8 @@ const NAV: NavItem[] = [
       desc: "이번 학기를 함께할 강사진을 미리 만나보세요.",
       href: "/instructors",
       cta: "강사진 만나기",
+      image: "/nav/field-instructors-principle.png",
+      imageAlt: "현장 강사진이 스튜디오 강의실에서 수업하는 모습",
     },
   },
   {
@@ -120,6 +131,8 @@ const NAV: NavItem[] = [
       desc: "정원 한정 · 사전 신청자에게 1순위로 안내드려요.",
       href: "/courses",
       cta: "수강 신청하기",
+      image: "/nav/spring-2026-preregistration.png",
+      imageAlt: "봄학기 사전 신청을 준비하는 책상과 노트북",
     },
   },
   {
@@ -152,6 +165,8 @@ const NAV: NavItem[] = [
       desc: "멀티영상 만들기 — 학생들이 만든 대표 결과물 3편",
       href: "/gallery",
       cta: "영상 보기",
+      image: "/nav/pro-class-3-stage.png",
+      imageAlt: "세 단계 영상 편집 결과물을 보여주는 작업 화면",
     },
   },
   {
@@ -199,6 +214,8 @@ const NAV: NavItem[] = [
       desc: "가르치는 사람이 매일 그 도구로 돈을 버는 사람이어야 합니다.",
       href: "/about",
       cta: "더 알아보기",
+      image: "/nav/field-instructors-principle.png",
+      imageAlt: "현장 강사진이 스튜디오 강의실에서 수업하는 모습",
     },
   },
 ];
@@ -325,10 +342,15 @@ export function Header() {
                   onClick={() => setActive(null)}
                   className="group block border-2 border-border bg-muted/30 hover:bg-muted/60 transition-colors p-5"
                 >
-                  <div
-                    aria-hidden
-                    className="aspect-[16/10] w-full bg-[linear-gradient(135deg,var(--headline-from)_0%,var(--headline-to)_100%)] mb-4"
-                  />
+                  <div className="relative aspect-[16/10] w-full mb-4 overflow-hidden bg-muted">
+                    <Image
+                      src={item.featured.image}
+                      alt={item.featured.imageAlt}
+                      fill
+                      sizes="(min-width: 1024px) 25vw, 100vw"
+                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                  </div>
                   <h4 className="text-xl font-black tracking-tight">
                     {item.featured.title}
                   </h4>
