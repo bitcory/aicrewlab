@@ -744,7 +744,7 @@
       inset: 0;
       background-image:
         linear-gradient(to right, rgba(11, 10, 8, 0.95) 0%, rgba(11, 10, 8, 0.74) 40%, rgba(11, 10, 8, 0.32) 72%, rgba(11, 10, 8, 0.10) 100%),
-        url("hero-v2.png");
+        url("hero-v2-c.jpg");
       background-size: cover, cover;
       background-position: center, right center;
       background-repeat: no-repeat, no-repeat;
@@ -943,6 +943,22 @@
       border-color: #f0892b;
     }
 
+    .curri-banner {
+      display: block;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--ink);
+      line-height: 0;
+      box-shadow: 0 12px 30px -14px rgba(0, 0, 0, 0.4);
+    }
+    .curri-banner img {
+      width: 100%;
+      height: auto;
+      max-height: 210px;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
     .curri-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -961,6 +977,23 @@
       background: linear-gradient(135deg, #20302a 0%, #0c130f 100%);
       overflow: hidden;
     }
+    .cthumb img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: saturate(1.06) contrast(1.03);
+    }
+    .cthumb::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to bottom, rgba(12, 19, 15, 0.04), rgba(12, 19, 15, 0.50)),
+        linear-gradient(135deg, rgba(47, 158, 99, 0.16), transparent 54%);
+    }
     .cthumb .cnum {
       position: absolute;
       right: 14px;
@@ -969,7 +1002,8 @@
       font-weight: 900;
       letter-spacing: -0.05em;
       line-height: 1;
-      color: rgba(255, 255, 255, 0.10);
+      color: rgba(255, 255, 255, 0.22);
+      z-index: 2;
     }
     .cthumb .ctag {
       position: absolute;
@@ -983,6 +1017,7 @@
       background: #f0892b;
       padding: 3px 9px;
       border-radius: 999px;
+      z-index: 2;
     }
     .cbody {
       padding: 14px 16px 16px;
@@ -1006,6 +1041,46 @@
       color: var(--muted);
       line-height: 1.5;
     }
+
+    /* ===== Last page photo wall ===== */
+    .moments-page {
+      position: relative;
+      min-height: 900px;
+      overflow: hidden;
+      background: #fffdf8;
+      border-bottom: none;
+    }
+
+    .moments-wall {
+      position: relative;
+      min-height: 900px;
+      padding: 48px;
+    }
+
+    .moment-photo {
+      position: absolute;
+      display: block;
+      overflow: hidden;
+      border: 2px solid var(--ink);
+      border-radius: 8px;
+      background: #fff;
+      box-shadow: 0 22px 54px -24px rgba(0, 0, 0, 0.45);
+    }
+
+    .moment-photo img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .moment-photo.p1 { left: 5%; top: 8%; width: 35%; aspect-ratio: 16 / 9; transform: rotate(-3deg); }
+    .moment-photo.p2 { left: 37%; top: 5%; width: 31%; aspect-ratio: 16 / 9; transform: rotate(4deg); }
+    .moment-photo.p3 { right: 4%; top: 16%; width: 29%; aspect-ratio: 16 / 9; transform: rotate(-5deg); }
+    .moment-photo.p4 { left: 9%; bottom: 8%; width: 19%; aspect-ratio: 3 / 4; transform: rotate(6deg); }
+    .moment-photo.p5 { left: 29%; bottom: 10%; width: 29%; aspect-ratio: 4 / 3; transform: rotate(-2deg); }
+    .moment-photo.p6 { right: 21%; bottom: 7%; width: 22%; aspect-ratio: 4 / 3; transform: rotate(5deg); }
+    .moment-photo.p7 { right: 5%; bottom: 8%; width: 16%; aspect-ratio: 3 / 4; transform: rotate(-4deg); }
 
     /* print bar (screen only) */
     .print-bar {
@@ -1514,19 +1589,36 @@
         print-color-adjust: exact;
       }
 
-      /* 06 커리큘럼 — 2열 + 다크 그린 배너, 푸터까지 한 페이지에 맞게 컴팩트 */
-      .curri-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 16px; }
-      .cb-inner { padding: 22px 28px; }
-      .cb-title { font-size: 28px; }
-      .cb-sub { font-size: 12.5px; margin-top: 10px; }
-      .cb-tracks { margin-top: 14px; }
-      .cthumb { aspect-ratio: 16 / 5.4; }
-      .cthumb .cnum { font-size: 64px; bottom: -10px; }
-      .cbody { padding: 11px 14px 13px; }
-      .ctitle { font-size: 15px; margin-top: 5px; }
-      .cdesc { font-size: 12px; margin-top: 4px; }
+      /* 06 커리큘럼 — 배너 + 카드, 푸터까지 한 페이지에 맞게 컴팩트 */
+      .curri-banner { box-shadow: none; }
+      .vcaption { margin: 14px 0 10px; }
+      .curri-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 12px; }
+      .cthumb { aspect-ratio: 16 / 3.6; }
+      .cthumb .cnum { font-size: 46px; bottom: -7px; }
+      .cbody { padding: 9px 13px 11px; }
+      .ctitle { font-size: 14.5px; margin-top: 4px; }
+      .cdesc { font-size: 11.5px; margin-top: 3px; }
       .curri-band, .cb-bg, .cb-kicker, .cb-kicker::before, .track, .track.on,
       .cthumb, .cthumb .cnum, .cthumb .ctag, .cstage {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      /* 마지막 사진 페이지 */
+      .moments-page {
+        break-before: page;
+        page-break-before: always;
+        height: calc(297mm - 32mm);
+        min-height: 0;
+        border-bottom: none;
+      }
+      .moments-wall {
+        height: 100%;
+        min-height: 0;
+        padding: 0;
+      }
+      .moment-photo {
+        box-shadow: 0 12px 28px -18px rgba(0, 0, 0, 0.55);
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
       }
@@ -1557,7 +1649,7 @@
       </div>
       <div class="hero-inner">
         <div class="hero-grid">
-          <img class="portrait" src="https://aicrew.rnpick.com/instructors/jiwon.jpg" alt="김진욱(툴비) 프로필"
+          <img class="portrait" src="instructors/jiwon-c.jpg" alt="김진욱(툴비) 프로필"
             onerror="this.style.display='none';document.getElementById('pfb').style.display='flex';" />
           <div class="portrait-fb" id="pfb">툴비</div>
 
@@ -1898,29 +1990,18 @@
         </div>
         <div class="sec-right" style="max-width:none">
 
-          <div class="curri-band">
-            <div class="cb-bg" aria-hidden="true"></div>
-            <div class="cb-inner">
-              <div class="cb-kicker">AI Video Curriculum</div>
-              <div class="cb-title">AI 영상 제작을 단계별로<br>완성하는 학습실</div>
-              <div class="cb-sub">
-                계정 준비부터 이미지·영상·인트로·광고·뮤직비디오·그림책 제작까지,
-                실습 중심 커리큘럼으로 필요한 흐름만 빠르게 익힙니다.
-              </div>
-              <div class="cb-tracks">
-                <span class="track">ZERO</span>
-                <span class="track">UP</span>
-                <span class="track on">PRO</span>
-                <span class="track">MASTER</span>
-              </div>
-            </div>
-          </div>
+          <a class="curri-banner" href="https://aicrew.rnpick.com" target="_blank" rel="noopener">
+            <img src="nav/pro-class-3-stage.png" alt="PRO 클래스 3단계 커리큘럼 안내 이미지" />
+          </a>
 
           <div class="vcaption">PRO 클래스 · 4단계 커리큘럼</div>
 
           <div class="curri-grid">
             <div class="ccard">
-              <div class="cthumb"><span class="ctag">PRO</span><span class="cnum">01</span></div>
+              <div class="cthumb">
+                <img src="resume-assets/curriculum-dialogue.png" alt="" />
+                <span class="ctag">PRO</span><span class="cnum">01</span>
+              </div>
               <div class="cbody">
                 <div class="cstage">PRO 1단계</div>
                 <div class="ctitle">시네마틱 5컷 다이얼로그</div>
@@ -1928,7 +2009,10 @@
               </div>
             </div>
             <div class="ccard">
-              <div class="cthumb"><span class="ctag">PRO</span><span class="cnum">02</span></div>
+              <div class="cthumb">
+                <img src="resume-assets/curriculum-music-video.png" alt="" />
+                <span class="ctag">PRO</span><span class="cnum">02</span>
+              </div>
               <div class="cbody">
                 <div class="cstage">PRO 2단계</div>
                 <div class="ctitle">뮤직영상 마스터</div>
@@ -1936,7 +2020,10 @@
               </div>
             </div>
             <div class="ccard">
-              <div class="cthumb"><span class="ctag">PRO</span><span class="cnum">03</span></div>
+              <div class="cthumb">
+                <img src="resume-assets/curriculum-multi-video.png" alt="" />
+                <span class="ctag">PRO</span><span class="cnum">03</span>
+              </div>
               <div class="cbody">
                 <div class="cstage">PRO 3단계</div>
                 <div class="ctitle">멀티영상 만들기</div>
@@ -1944,7 +2031,10 @@
               </div>
             </div>
             <div class="ccard">
-              <div class="cthumb"><span class="ctag">PRO</span><span class="cnum">04</span></div>
+              <div class="cthumb">
+                <img src="resume-assets/curriculum-picture-book.png" alt="" />
+                <span class="ctag">PRO</span><span class="cnum">04</span>
+              </div>
               <div class="cbody">
                 <div class="cstage">PRO 4단계</div>
                 <div class="ctitle">AI 그림책 만들기</div>
@@ -1964,6 +2054,32 @@
       </div>
       <a href="https://aicrew.rnpick.com" target="_blank" rel="noopener">aicrew.rnpick.com</a>
     </footer>
+
+    <section class="moments-page" aria-label="교육 현장 사진 모음">
+      <div class="moments-wall">
+        <figure class="moment-photo p1">
+          <img src="moments/classroom-presentation.jpg" alt="강의장에서 함께 찍은 단체 사진" />
+        </figure>
+        <figure class="moment-photo p2">
+          <img src="moments/study-room-team.jpg" alt="스터디룸에서 함께한 팀 사진" />
+        </figure>
+        <figure class="moment-photo p3">
+          <img src="moments/workshop-table.jpg" alt="워크숍 테이블에 모여 작업하는 모습" />
+        </figure>
+        <figure class="moment-photo p4">
+          <img src="moments/design-session.jpg" alt="디자인 세션을 진행하는 모습" />
+        </figure>
+        <figure class="moment-photo p5">
+          <img src="moments/meeting-room.jpg" alt="회의실에서 함께 웃는 사람들" />
+        </figure>
+        <figure class="moment-photo p6">
+          <img src="moments/roundtable.jpg" alt="테이블을 둘러앉아 카메라를 보는 사람들" />
+        </figure>
+        <figure class="moment-photo p7">
+          <img src="moments/film-set-selfie.jpg" alt="촬영 현장에서 찍은 셀피" />
+        </figure>
+      </div>
+    </section>
 
   </main>
 

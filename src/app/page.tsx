@@ -34,6 +34,51 @@ const PROMISES = [
   },
 ];
 
+const PHOTO_WALL = [
+  {
+    src: "/moments/classroom-presentation.jpg",
+    alt: "강의장에서 함께 찍은 단체 사진",
+    className: "lg:left-[5%] lg:top-[12%] lg:w-[34%] lg:rotate-[-3deg]",
+    aspect: "aspect-[16/9]",
+  },
+  {
+    src: "/moments/study-room-team.jpg",
+    alt: "스터디룸에서 함께한 팀 사진",
+    className: "lg:left-[38%] lg:top-[5%] lg:w-[30%] lg:rotate-[4deg]",
+    aspect: "aspect-[16/9]",
+  },
+  {
+    src: "/moments/workshop-table.jpg",
+    alt: "워크숍 테이블에 모여 작업하는 모습",
+    className: "lg:right-[4%] lg:top-[18%] lg:w-[28%] lg:rotate-[-5deg]",
+    aspect: "aspect-[16/9]",
+  },
+  {
+    src: "/moments/design-session.jpg",
+    alt: "디자인 세션을 진행하는 모습",
+    className: "lg:left-[10%] lg:bottom-[8%] lg:w-[18%] lg:rotate-[6deg]",
+    aspect: "aspect-[3/4]",
+  },
+  {
+    src: "/moments/meeting-room.jpg",
+    alt: "회의실에서 함께 웃는 사람들",
+    className: "lg:left-[28%] lg:bottom-[9%] lg:w-[29%] lg:rotate-[-2deg]",
+    aspect: "aspect-[4/3]",
+  },
+  {
+    src: "/moments/roundtable.jpg",
+    alt: "테이블을 둘러앉아 카메라를 보는 사람들",
+    className: "lg:right-[21%] lg:bottom-[5%] lg:w-[22%] lg:rotate-[5deg]",
+    aspect: "aspect-[4/3]",
+  },
+  {
+    src: "/moments/film-set-selfie.jpg",
+    alt: "촬영 현장에서 찍은 셀피",
+    className: "lg:right-[5%] lg:bottom-[7%] lg:w-[16%] lg:rotate-[-4deg]",
+    aspect: "aspect-[3/4]",
+  },
+];
+
 export default function HomePage() {
   const featured = instructors
     .filter((i) => i.featured)
@@ -296,6 +341,28 @@ export default function HomePage() {
               </li>
             ))}
           </ul>
+        </div>
+      </section>
+
+      {/* Moments */}
+      <section className="relative min-h-screen w-full overflow-hidden border-t-2 border-border bg-background px-4 py-8 sm:px-8 lg:px-12 lg:py-0">
+        <div className="grid grid-cols-2 gap-4 sm:gap-5 lg:block lg:h-screen">
+          {PHOTO_WALL.map((photo, index) => (
+            <figure
+              key={photo.src}
+              className={`group relative ${photo.aspect} overflow-hidden rounded-[8px] border-2 border-border bg-muted shadow-[0_18px_55px_rgb(0_0_0/0.18)] transition-transform duration-300 hover:z-20 hover:scale-[1.02] lg:absolute ${photo.className} ${
+                index === 0 || index === 2 ? "col-span-2 sm:col-span-1" : ""
+              }`}
+            >
+              <Image
+                src={photo.src}
+                alt={photo.alt}
+                fill
+                sizes="(min-width: 1024px) 34vw, (min-width: 640px) 50vw, 100vw"
+                className="object-cover"
+              />
+            </figure>
+          ))}
         </div>
       </section>
     </>
