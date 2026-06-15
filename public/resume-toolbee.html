@@ -326,23 +326,25 @@
 
     .contacts {
       margin-top: 26px;
-      display: flex;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       gap: 8px;
+      max-width: 580px;
     }
 
     .contacts a,
     .contacts span.ci {
-      display: inline-flex;
+      display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
       border: 1px solid var(--line);
       border-radius: 999px;
-      padding: 7px 14px;
+      padding: 7px 16px;
       font-size: 12.5px;
       color: #37342d;
       text-decoration: none;
       background: #fff;
+      white-space: nowrap;
     }
 
     .contacts a:hover {
@@ -350,7 +352,10 @@
       color: var(--ink);
     }
 
+    /* 라벨 고정폭 → 값(번호·메일·주소·링크) 시작점 정렬로 통일감 */
     .contacts b {
+      flex: 0 0 auto;
+      min-width: 62px;
       font-weight: 700;
       color: var(--gold);
       font-family: ui-monospace, Menlo, monospace;
@@ -445,6 +450,26 @@
     .summary b {
       color: var(--gold);
       font-weight: 700;
+    }
+
+    /* 소개: 문장 단위 한 줄씩 — 앞에 골드 표식으로 가지런하게 */
+    .summary.lines p {
+      margin: 0;
+      padding-left: 20px;
+      position: relative;
+    }
+    .summary.lines p+p {
+      margin-top: 14px;
+    }
+    .summary.lines p::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.72em;
+      width: 9px;
+      height: 2px;
+      border-radius: 2px;
+      background: var(--gold);
     }
 
     /* timeline */
@@ -702,6 +727,284 @@
       border-bottom: 1px solid var(--gold-bd);
       font-size: 13px;
       font-weight: 600;
+    }
+
+    /* ===== Academy band + video grid (05) ===== */
+    .academy-band {
+      display: block;
+      position: relative;
+      overflow: hidden;
+      border-radius: 16px;
+      text-decoration: none;
+      background: #141210;
+      border: 1px solid var(--ink);
+    }
+    .ab-bg {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(to right, rgba(11, 10, 8, 0.95) 0%, rgba(11, 10, 8, 0.74) 40%, rgba(11, 10, 8, 0.32) 72%, rgba(11, 10, 8, 0.10) 100%),
+        url("hero-v2.png");
+      background-size: cover, cover;
+      background-position: center, right center;
+      background-repeat: no-repeat, no-repeat;
+    }
+    .ab-inner {
+      position: relative;
+      padding: 34px 38px;
+    }
+    .ab-kicker {
+      font-family: ui-monospace, Menlo, monospace;
+      text-transform: uppercase;
+      letter-spacing: 0.28em;
+      font-size: 11px;
+      color: #e8b54a;
+      margin-bottom: 16px;
+    }
+    .ab-title {
+      font-size: 40px;
+      font-weight: 900;
+      letter-spacing: -0.035em;
+      line-height: 1.06;
+      color: #fff;
+    }
+    .ab-title .g {
+      color: #f0892b;
+    }
+    .ab-sub {
+      margin-top: 16px;
+      font-size: 14px;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.72);
+      max-width: 52ch;
+    }
+    .ab-link {
+      margin-top: 16px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: ui-monospace, Menlo, monospace;
+      font-size: 12px;
+      letter-spacing: 0.05em;
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 999px;
+      padding: 7px 15px;
+    }
+
+    .vcaption {
+      margin: 26px 0 16px;
+      font-size: 13px;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .vcaption::before {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--hair);
+    }
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+    .vcard {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+    }
+    .vthumb {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      border-radius: 11px;
+      overflow: hidden;
+      background: linear-gradient(135deg, #2a2722, #141210);
+      border: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .vthumb img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .vplay {
+      position: relative;
+      z-index: 2;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.92);
+      color: #141210;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      padding-left: 3px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+    }
+    .vtitle {
+      margin-top: 12px;
+      font-size: 14.5px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .vmeta {
+      margin-top: 5px;
+      font-size: 12.5px;
+      color: var(--gold);
+      font-weight: 600;
+    }
+
+    /* ===== Curriculum band + stage cards (06) ===== */
+    .curri-band {
+      position: relative;
+      overflow: hidden;
+      border-radius: 16px;
+      background: #0c130f;
+      border: 1px solid var(--ink);
+    }
+    .cb-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 82% 22%, rgba(64, 168, 116, 0.30), transparent 55%),
+        radial-gradient(circle at 14% 92%, rgba(214, 164, 66, 0.14), transparent 50%),
+        linear-gradient(to right, rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+      background-size: auto, auto, 44px 44px, 44px 44px;
+    }
+    .cb-inner {
+      position: relative;
+      padding: 32px 36px;
+    }
+    .cb-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      font-family: ui-monospace, Menlo, monospace;
+      text-transform: uppercase;
+      letter-spacing: 0.24em;
+      font-size: 11px;
+      color: #f0892b;
+      margin-bottom: 16px;
+    }
+    .cb-kicker::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #f0892b;
+    }
+    .cb-title {
+      font-size: 36px;
+      font-weight: 900;
+      letter-spacing: -0.035em;
+      line-height: 1.08;
+      color: #fff;
+    }
+    .cb-sub {
+      margin-top: 15px;
+      font-size: 14px;
+      line-height: 1.65;
+      color: rgba(255, 255, 255, 0.72);
+      max-width: 60ch;
+    }
+    .cb-tracks {
+      margin-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .track {
+      font-family: ui-monospace, Menlo, monospace;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      color: rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 999px;
+      padding: 5px 13px;
+    }
+    .track.on {
+      color: #14120c;
+      background: #f0892b;
+      border-color: #f0892b;
+    }
+
+    .curri-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-top: 22px;
+    }
+    .ccard {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: hidden;
+      background: #fff;
+    }
+    .cthumb {
+      position: relative;
+      aspect-ratio: 16 / 8.2;
+      background: linear-gradient(135deg, #20302a 0%, #0c130f 100%);
+      overflow: hidden;
+    }
+    .cthumb .cnum {
+      position: absolute;
+      right: 14px;
+      bottom: -14px;
+      font-size: 86px;
+      font-weight: 900;
+      letter-spacing: -0.05em;
+      line-height: 1;
+      color: rgba(255, 255, 255, 0.10);
+    }
+    .cthumb .ctag {
+      position: absolute;
+      left: 14px;
+      top: 14px;
+      font-family: ui-monospace, Menlo, monospace;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: #14120c;
+      background: #f0892b;
+      padding: 3px 9px;
+      border-radius: 999px;
+    }
+    .cbody {
+      padding: 14px 16px 16px;
+    }
+    .cstage {
+      font-family: ui-monospace, Menlo, monospace;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--gold);
+    }
+    .ctitle {
+      margin-top: 6px;
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+    .cdesc {
+      margin-top: 5px;
+      font-size: 12.5px;
+      color: var(--muted);
+      line-height: 1.5;
     }
 
     /* print bar (screen only) */
@@ -1198,6 +1501,35 @@
       .page-break .row { padding: 15px 0 15px 20px; }
       .page-break .row::before { top: 19px; }
       .page-break .row:first-child::before { top: 11px; }
+
+      /* 05 아카데미 · 영상 — 인쇄에서도 2열 유지 + 다크 배너 색상 출력 */
+      .video-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+      .ab-inner { padding: 28px 32px; }
+      .ab-title { font-size: 34px; }
+      .ab-sub { font-size: 13px; margin-top: 13px; }
+      .vtitle { font-size: 14px; }
+      .vmeta { font-size: 12.5px; }
+      .academy-band, .ab-bg, .ab-link, .vthumb, .vthumb img, .vplay, .vmeta {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      /* 06 커리큘럼 — 2열 + 다크 그린 배너, 푸터까지 한 페이지에 맞게 컴팩트 */
+      .curri-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 16px; }
+      .cb-inner { padding: 22px 28px; }
+      .cb-title { font-size: 28px; }
+      .cb-sub { font-size: 12.5px; margin-top: 10px; }
+      .cb-tracks { margin-top: 14px; }
+      .cthumb { aspect-ratio: 16 / 5.4; }
+      .cthumb .cnum { font-size: 64px; bottom: -10px; }
+      .cbody { padding: 11px 14px 13px; }
+      .ctitle { font-size: 15px; margin-top: 5px; }
+      .cdesc { font-size: 12px; margin-top: 4px; }
+      .curri-band, .cb-bg, .cb-kicker, .cb-kicker::before, .track, .track.on,
+      .cthumb, .cthumb .cnum, .cthumb .ctag, .cstage {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
     }
   </style>
 </head>
@@ -1279,20 +1611,12 @@
           <div class="kr">소개</div>
           <div class="note">AI를 지배하는 콘텐츠 크리에이터</div>
         </div>
-        <div class="sec-right summary">
-          <p>
-            안녕하세요, <b>“AI를 지배하는 콘텐츠 크리에이터” 툴비 김진욱</b>입니다.
-            저는 누구나 AI에 친숙하게 다가서고, AI에 끌려다니지 않고 <b>‘AI를 다루는 사람’</b>이
-            되도록 돕는 것을 목표로 합니다.
-          </p>
-          <p>
-            렌탈 유통과 소프트웨어 영업, 카카오 계열사 임원을 거치며 쌓은 현장 비즈니스 경험을 바탕으로,
-            이론이 아니라 <b>“오늘 끝나면 손에 동작하는 결과물이 남는”</b> 실전형 교육을 지향합니다.
-            AI 영상 제작, 이미지 생성, 바이브 코딩까지 전 트랙을 직접 설계하고 가르칩니다.
-          </p>
-          <p>
-            현재 AI 교육 브랜드 <b>아이크루(AICREW)</b>를 운영하며 기업·학교·지역 커뮤니티에서 강의를 이어가고 있습니다.
-          </p>
+        <div class="sec-right summary lines">
+          <p>안녕하세요, <b>“AI를 지배하는 콘텐츠 크리에이터” 툴비 김진욱</b>입니다.</p>
+          <p>저는 누구나 AI에 친숙하게 다가서고, AI에 끌려다니지 않고 <b>‘AI를 다루는 사람’</b>이 되도록 돕는 것을 목표로 합니다.</p>
+          <p>렌탈 유통과 소프트웨어 영업, 카카오 계열사 임원을 거치며 쌓은 현장 비즈니스 경험을 바탕으로, 이론이 아니라 <b>“오늘 끝나면 손에 동작하는 결과물이 남는”</b> 실전형 교육을 지향합니다.</p>
+          <p>AI 영상 제작, 이미지 생성, 바이브코딩까지 전 트랙을 직접 설계하고 가르칩니다.</p>
+          <p>현재 AI 교육 브랜드 <b>아이크루(AICREW)</b>를 운영하며 기업·학교·지역 커뮤니티에서 강의를 이어가고 있습니다.</p>
         </div>
       </div>
     </section>
@@ -1489,6 +1813,146 @@
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 05 ACADEMY & VIDEOS ================= -->
+    <section class="page-break">
+      <div class="sec-inner">
+        <div class="sec-left">
+          <div class="seclabel"><span class="idx">05</span><span class="en">— Academy</span></div>
+          <div class="kr">아카데미 · 대표 영상</div>
+          <div class="note">AICREW에서 만든 콘텐츠</div>
+        </div>
+        <div class="sec-right" style="max-width:none">
+
+          <a class="academy-band" href="https://aicrew.rnpick.com" target="_blank" rel="noopener">
+            <div class="ab-bg" aria-hidden="true"></div>
+            <div class="ab-inner">
+              <div class="ab-kicker">AICREW ACADEMY · 2026</div>
+              <div class="ab-title"><span class="g">AI</span>로 만들고,<br><span class="g">AI</span>로 성장합니다.</div>
+              <div class="ab-sub">
+                AI를 가르치는 게 아니라, AI로 ‘만드는 법’을 가르치는 아카데미.
+                영상·이미지·음악을 만드는 사람을 직접 설계해 키웁니다.
+              </div>
+              <span class="ab-link">aicrew.rnpick.com ↗</span>
+            </div>
+          </a>
+
+          <div class="vcaption">수강생 분들이 제작한 다양한 영상</div>
+
+          <div class="video-grid">
+            <a class="vcard" href="https://youtu.be/gjOQPGzTI9Q" target="_blank" rel="noopener">
+              <div class="vthumb">
+                <span class="vplay">▶</span>
+                <img src="https://img.youtube.com/vi/gjOQPGzTI9Q/maxresdefault.jpg" alt=""
+                  onerror="this.onerror=null;this.src='https://img.youtube.com/vi/gjOQPGzTI9Q/hqdefault.jpg';" />
+              </div>
+              <div class="vtitle">주먹의 무게 (THE WEIGHT OF A FIST)</div>
+              <div class="vmeta">AI 단편영화 · 복서의 이야기</div>
+            </a>
+
+            <a class="vcard" href="https://youtu.be/5Rp53h1EJ28" target="_blank" rel="noopener">
+              <div class="vthumb">
+                <span class="vplay">▶</span>
+                <img src="https://img.youtube.com/vi/5Rp53h1EJ28/maxresdefault.jpg" alt=""
+                  onerror="this.onerror=null;this.src='https://img.youtube.com/vi/5Rp53h1EJ28/hqdefault.jpg';" />
+              </div>
+              <div class="vtitle">세상이 궁금한 민들레</div>
+              <div class="vmeta">PRO 4단계 · 나나님 작품</div>
+            </a>
+
+            <a class="vcard" href="https://youtu.be/67V8yjpUalo" target="_blank" rel="noopener">
+              <div class="vthumb">
+                <span class="vplay">▶</span>
+                <img src="https://img.youtube.com/vi/67V8yjpUalo/maxresdefault.jpg" alt=""
+                  onerror="this.onerror=null;this.src='https://img.youtube.com/vi/67V8yjpUalo/hqdefault.jpg';" />
+              </div>
+              <div class="vtitle">빛바랜 기억</div>
+              <div class="vmeta">PRO 2단계 작품</div>
+            </a>
+
+            <a class="vcard" href="https://youtu.be/iXhiBj3jMfs" target="_blank" rel="noopener">
+              <div class="vthumb">
+                <span class="vplay">▶</span>
+                <img src="https://img.youtube.com/vi/iXhiBj3jMfs/maxresdefault.jpg" alt=""
+                  onerror="this.onerror=null;this.src='https://img.youtube.com/vi/iXhiBj3jMfs/hqdefault.jpg';" />
+              </div>
+              <div class="vtitle">뮤직영상 만들기</div>
+              <div class="vmeta">UP 2단계 · 막비움님 작품</div>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 06 CURRICULUM ================= -->
+    <section class="page-break">
+      <div class="sec-inner">
+        <div class="sec-left">
+          <div class="seclabel"><span class="idx">06</span><span class="en">— Curriculum</span></div>
+          <div class="kr">커리큘럼 안내</div>
+          <div class="note">단계별 실습 중심 커리큘럼</div>
+        </div>
+        <div class="sec-right" style="max-width:none">
+
+          <div class="curri-band">
+            <div class="cb-bg" aria-hidden="true"></div>
+            <div class="cb-inner">
+              <div class="cb-kicker">AI Video Curriculum</div>
+              <div class="cb-title">AI 영상 제작을 단계별로<br>완성하는 학습실</div>
+              <div class="cb-sub">
+                계정 준비부터 이미지·영상·인트로·광고·뮤직비디오·그림책 제작까지,
+                실습 중심 커리큘럼으로 필요한 흐름만 빠르게 익힙니다.
+              </div>
+              <div class="cb-tracks">
+                <span class="track">ZERO</span>
+                <span class="track">UP</span>
+                <span class="track on">PRO</span>
+                <span class="track">MASTER</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="vcaption">PRO 클래스 · 4단계 커리큘럼</div>
+
+          <div class="curri-grid">
+            <div class="ccard">
+              <div class="cthumb"><span class="ctag">PRO</span><span class="cnum">01</span></div>
+              <div class="cbody">
+                <div class="cstage">PRO 1단계</div>
+                <div class="ctitle">시네마틱 5컷 다이얼로그</div>
+                <div class="cdesc">대사가 살아있는 5컷 시네마틱 영상 제작</div>
+              </div>
+            </div>
+            <div class="ccard">
+              <div class="cthumb"><span class="ctag">PRO</span><span class="cnum">02</span></div>
+              <div class="cbody">
+                <div class="cstage">PRO 2단계</div>
+                <div class="ctitle">뮤직영상 마스터</div>
+                <div class="cdesc">음악에 맞춘 뮤직비디오 완성</div>
+              </div>
+            </div>
+            <div class="ccard">
+              <div class="cthumb"><span class="ctag">PRO</span><span class="cnum">03</span></div>
+              <div class="cbody">
+                <div class="cstage">PRO 3단계</div>
+                <div class="ctitle">멀티영상 만들기</div>
+                <div class="cdesc">내가 원하는 모든 영상을 10분 만에</div>
+              </div>
+            </div>
+            <div class="ccard">
+              <div class="cthumb"><span class="ctag">PRO</span><span class="cnum">04</span></div>
+              <div class="cbody">
+                <div class="cstage">PRO 4단계</div>
+                <div class="ctitle">AI 그림책 만들기</div>
+                <div class="cdesc">일관된 캐릭터로 AI 그림책 제작</div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
