@@ -1045,17 +1045,94 @@
     /* ===== Last page photo wall ===== */
     .moments-page {
       position: relative;
-      min-height: 900px;
       overflow: hidden;
       background: #fffdf8;
       border-bottom: none;
+      display: flex;
+      flex-direction: column;
     }
 
     .moments-wall {
       position: relative;
-      min-height: 900px;
+      height: 560px;
       padding: 48px;
     }
+
+    /* ===== Contact CTA (last page) ===== */
+    .contact-cta {
+      position: relative;
+      padding: 40px 48px 56px;
+      text-align: center;
+      border-top: 2px solid var(--ink);
+      background:
+        radial-gradient(ellipse at 50% 0%, var(--gold-bg) 0%, transparent 70%),
+        #fffdf8;
+    }
+    .cc-kicker {
+      font-family: var(--mono, monospace);
+      letter-spacing: .28em;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--gold);
+      text-transform: uppercase;
+    }
+    .cc-title {
+      margin: 8px 0 28px;
+      font-size: 38px;
+      font-weight: 800;
+      letter-spacing: -.01em;
+      color: var(--ink);
+    }
+    .cc-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      justify-content: center;
+      max-width: 980px;
+      margin: 0 auto;
+    }
+    .cc-link {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex: 1 1 280px;
+      min-width: 260px;
+      max-width: 320px;
+      padding: 20px 24px;
+      border: 2px solid var(--ink);
+      border-radius: 14px;
+      background: #fff;
+      text-decoration: none;
+      color: var(--ink);
+      box-shadow: 0 14px 30px -20px rgba(0, 0, 0, 0.5);
+      transition: transform .15s ease, box-shadow .15s ease;
+    }
+    .cc-link:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 20px 38px -18px rgba(0, 0, 0, 0.55);
+    }
+    .cc-ico {
+      flex: none;
+      width: 52px;
+      height: 52px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      color: #fff;
+    }
+    .cc-ico svg { width: 30px; height: 30px; }
+    .cc-link.yt .cc-ico { background: #ff0033; }
+    .cc-link.th .cc-ico { background: #000; }
+    .cc-link.hp .cc-ico { background: var(--gold-2); }
+    .cc-txt {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      line-height: 1.25;
+      text-align: left;
+    }
+    .cc-txt b { font-size: 19px; font-weight: 800; }
+    .cc-txt span { font-size: 15px; color: #6b6457; }
 
     .moment-photo {
       position: absolute;
@@ -1074,13 +1151,13 @@
       object-fit: cover;
     }
 
-    .moment-photo.p1 { left: 5%; top: 8%; width: 35%; aspect-ratio: 16 / 9; transform: rotate(-3deg); }
-    .moment-photo.p2 { left: 37%; top: 5%; width: 31%; aspect-ratio: 16 / 9; transform: rotate(4deg); }
-    .moment-photo.p3 { right: 4%; top: 16%; width: 29%; aspect-ratio: 16 / 9; transform: rotate(-5deg); }
-    .moment-photo.p4 { left: 9%; bottom: 8%; width: 19%; aspect-ratio: 3 / 4; transform: rotate(6deg); }
-    .moment-photo.p5 { left: 29%; bottom: 10%; width: 29%; aspect-ratio: 4 / 3; transform: rotate(-2deg); }
-    .moment-photo.p6 { right: 21%; bottom: 7%; width: 22%; aspect-ratio: 4 / 3; transform: rotate(5deg); }
-    .moment-photo.p7 { right: 5%; bottom: 8%; width: 16%; aspect-ratio: 3 / 4; transform: rotate(-4deg); }
+    .moment-photo.p1 { left: 3%; top: 6%; width: 40%; aspect-ratio: 16 / 9; transform: rotate(-3deg); }
+    .moment-photo.p2 { left: 35%; top: 3%; width: 36%; aspect-ratio: 16 / 9; transform: rotate(3deg); }
+    .moment-photo.p3 { right: 2%; top: 10%; width: 34%; aspect-ratio: 16 / 9; transform: rotate(-5deg); }
+    .moment-photo.p4 { left: 5%; bottom: 5%; width: 24%; aspect-ratio: 3 / 4; transform: rotate(5deg); }
+    .moment-photo.p5 { left: 27%; bottom: 6%; width: 36%; aspect-ratio: 4 / 3; transform: rotate(-2deg); }
+    .moment-photo.p6 { right: 18%; bottom: 4%; width: 28%; aspect-ratio: 4 / 3; transform: rotate(5deg); }
+    .moment-photo.p7 { right: 2%; bottom: 5%; width: 20%; aspect-ratio: 3 / 4; transform: rotate(-4deg); }
 
     /* print bar (screen only) */
     .print-bar {
@@ -1416,6 +1493,12 @@
       h1 {
         font-size: 42px;
       }
+
+      .cc-title { font-size: 30px; }
+      .cc-link {
+        flex: 1 1 100%;
+        max-width: 420px;
+      }
     }
 
     /* ===== PRINT OVERRIDES (declared last → beats the 860px mobile rules
@@ -1611,17 +1694,50 @@
         height: calc(297mm - 32mm);
         min-height: 0;
         border-bottom: none;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 12mm;
       }
       .moments-wall {
-        height: 100%;
+        width: 100%;
+        height: 118mm;
         min-height: 0;
         padding: 0;
+        flex: none;
       }
       .moment-photo {
         box-shadow: 0 12px 28px -18px rgba(0, 0, 0, 0.55);
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
       }
+      .contact-cta {
+        flex: none;
+        padding: 8mm 6mm 0;
+        background: none;
+        border-top: 2px solid var(--ink);
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .cc-title { font-size: 26px; margin: 6px 0 16px; }
+      .cc-links { gap: 10px; max-width: 100%; }
+      .cc-link {
+        flex: 1 1 0;
+        min-width: 0;
+        padding: 12px 14px;
+        gap: 11px;
+        box-shadow: none;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .cc-ico { width: 40px; height: 40px; }
+      .cc-ico svg { width: 24px; height: 24px; }
+      .cc-ico, .cc-link.yt .cc-ico, .cc-link.th .cc-ico, .cc-link.hp .cc-ico {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .cc-txt b { font-size: 15px; }
+      .cc-txt span { font-size: 12px; }
     }
   </style>
 </head>
@@ -2078,6 +2194,31 @@
         <figure class="moment-photo p7">
           <img src="moments/film-set-selfie.jpg" alt="촬영 현장에서 찍은 셀피" />
         </figure>
+      </div>
+
+      <div class="contact-cta">
+        <div class="cc-kicker">CONTACT &amp; CHANNELS</div>
+        <h2 class="cc-title">함께 만들어요</h2>
+        <div class="cc-links">
+          <a class="cc-link yt" href="https://www.youtube.com/@toolbstudio" target="_blank" rel="noopener">
+            <span class="cc-ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.3 31.3 0 0 0 0 12a31.3 31.3 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.3 31.3 0 0 0 24 12a31.3 31.3 0 0 0-.5-5.8ZM9.6 15.6V8.4l6.3 3.6-6.3 3.6Z"/></svg>
+            </span>
+            <span class="cc-txt"><b>YouTube</b><span>@toolbstudio</span></span>
+          </a>
+          <a class="cc-link th" href="https://www.threads.net/@aitoolbee" target="_blank" rel="noopener">
+            <span class="cc-ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.3 11.1c-.1 0-.2-.1-.3-.1-.2-3.3-2-5.2-5-5.2-1.8 0-3.4.8-4.3 2.2l1.7 1.1c.7-1 1.7-1.3 2.6-1.3 1.7 0 2.6 1 2.8 2.7-.7-.1-1.4-.2-2.2-.1-2.6.1-4.2 1.4-4.1 3.4.1 1.7 1.6 2.8 3.5 2.7 1.4-.1 2.5-.6 3.3-1.6.5-.7.8-1.5.9-2.5.7.4 1.2 1 1.5 1.7.5 1.1.5 3-1 4.5-1.3 1.3-2.9 1.9-5.2 1.9-2.6 0-4.5-.8-5.8-2.4C5.2 16.3 4.6 14.3 4.6 12s.6-4.3 1.7-5.7C7.6 4.7 9.5 3.9 12.1 3.9c2.6 0 4.5.8 5.8 2.4.6.8 1.1 1.7 1.4 2.9l2-.5c-.3-1.4-.9-2.7-1.7-3.7C17.9 2.9 15.4 1.9 12.1 1.9 8.9 1.9 6.4 2.9 4.6 5 3 6.9 2.2 9.3 2.2 12s.8 5.1 2.4 7c1.8 2.1 4.3 3.1 7.5 3.1 2.8 0 5-.7 6.6-2.4 2.1-2.1 2-4.8 1.3-6.4-.5-1.1-1.5-2-2.7-2.2Zm-4.9 4.6c-1 .1-2-.4-2.1-1.3 0-.7.5-1.4 2.1-1.5h.6c.6 0 1.1 0 1.6.1-.2 2-1.2 2.6-2.2 2.7Z"/></svg>
+            </span>
+            <span class="cc-txt"><b>Threads</b><span>@aitoolbee</span></span>
+          </a>
+          <a class="cc-link hp" href="https://aicrew.rnpick.com" target="_blank" rel="noopener">
+            <span class="cc-ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.8 2.6 4.3 6 4.3 9.5S14.8 18.9 12 21.5C9.2 18.9 7.7 15.5 7.7 12S9.2 5.1 12 2.5Z"/></svg>
+            </span>
+            <span class="cc-txt"><b>Homepage</b><span>aicrew.rnpick.com</span></span>
+          </a>
+        </div>
       </div>
     </section>
 
