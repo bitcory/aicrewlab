@@ -18,7 +18,7 @@ type Tool = {
 
 const TOOLS: Tool[] = [
   {
-    name: "일반 이미지 분할기",
+    name: "이미지 분할기",
     tagline: "Image Splitter",
     description:
       "큰 이미지를 격자로 잘라 여러 장으로 나눠줍니다. 썸네일·스프라이트·업로드 분할에 바로 쓰세요.",
@@ -26,7 +26,7 @@ const TOOLS: Tool[] = [
     tag: "Image",
   },
   {
-    name: "영상 다운로드",
+    name: "멀티영상다운",
     tagline: "Video Downloader",
     description:
       "영상 링크만 넣으면 원본 영상을 바로 내려받습니다. 레퍼런스 수집·소스 확보에 빠르게 쓰세요.",
@@ -34,7 +34,7 @@ const TOOLS: Tool[] = [
     tag: "Video",
   },
   {
-    name: "음성 생성하기",
+    name: "음성생성기",
     tagline: "Text to Speech",
     description:
       "텍스트를 입력하면 자연스러운 음성으로 변환합니다. 내레이션·더빙·미리듣기 음원을 바로 만드세요.",
