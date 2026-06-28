@@ -259,6 +259,13 @@ export function Header() {
                   </button>
                 );
               })}
+              <Link
+                href="/tools"
+                onMouseEnter={() => setActive(null)}
+                className="inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-base lg:text-lg font-semibold tracking-tight text-foreground/85 hover:bg-background/70 hover:text-foreground transition-colors"
+              >
+                유용한 툴
+              </Link>
             </nav>
           </div>
 
@@ -381,6 +388,14 @@ export function Header() {
               </Link>
             </li>
           ))}
+          <li>
+            <Link
+              href="/tools"
+              className="block px-4 py-2.5 rounded-full text-foreground/80 hover:text-foreground hover:bg-muted/60 transition whitespace-nowrap"
+            >
+              유용한 툴
+            </Link>
+          </li>
         </ul>
       </nav>
     </header>
