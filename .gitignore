@@ -45,6 +45,9 @@ yarn-error.log*
 /.velite/
 /public/static/
 
+# migration artifacts (D1 dump / R2 objects)
+/scratchpad-migrate/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

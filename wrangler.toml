@@ -1,4 +1,5 @@
 name = "aicrew-academy"
+account_id = "fb8f04a5cf9422817fd47ab1084380c7"
 compatibility_date = "2026-05-01"
 compatibility_flags = ["nodejs_compat"]
 
@@ -14,14 +15,14 @@ enabled = true
 
 # 커스텀 도메인 — Cloudflare가 DNS·SSL 자동 처리
 [[routes]]
-pattern = "aicrew.rnpick.com"
+pattern = "ai.toolb.kr"
 custom_domain = true
 
 # D1 (gallery DB) — wrangler d1 create aicrew-gallery 후 database_id 채우기
 [[d1_databases]]
 binding = "DB"
 database_name = "aicrew-gallery"
-database_id = "b5091444-66c0-4d22-aab3-7c158454c57a"
+database_id = "6b645e18-5ea6-462c-9b06-7096935361f1"
 migrations_dir = "migrations"
 
 # R2 (gallery 이미지 호스팅)

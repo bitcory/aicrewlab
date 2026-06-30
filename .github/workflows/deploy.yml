@@ -1,0 +1,40 @@
+name: Deploy to Cloudflare Workers
+
+# main 브랜치에 push되면 자동으로 ai.toolb.kr(Cloudflare Worker)에 배포.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Generate content (velite)
+        run: pnpm content
+
+      - name: Build (OpenNext for Cloudflare)
+        run: pnpm exec opennextjs-cloudflare build
+
+      - name: Deploy
+        run: pnpm exec opennextjs-cloudflare deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
