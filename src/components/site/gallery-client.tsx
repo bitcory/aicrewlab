@@ -1,7 +1,7 @@
 "use client";
 
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { cn } from "@/lib/utils";
 import type { GalleryItem } from "@/lib/db";
 import { LikeButton } from "@/components/site/like-button";
@@ -30,7 +30,46 @@ const LEVEL_FILTERS: Array<{ value: LevelFilter; label: string }> = [
   { value: "pro", label: CLASS_LEVELS.pro.label },
 ];
 
+const YT_ORIGIN = "https://www.youtube-nocookie.com";
+
+/** 한 영상이 재생되면 나머지 YouTube 임베드를 일시정지 */
+function usePauseOtherVideos() {
+  useEffect(() => {
+    const onMessage = (e: MessageEvent) => {
+      if (e.origin !== YT_ORIGIN || typeof e.data !== "string") return;
+      let data: { event?: string; info?: number | { playerState?: number } };
+      try {
+        data = JSON.parse(e.data);
+      } catch {
+        return;
+      }
+      const state =
+        data.event === "onStateChange" && typeof data.info === "number"
+          ? data.info
+          : data.event === "infoDelivery" &&
+              typeof data.info === "object" &&
+              data.info !== null
+            ? data.info.playerState
+            : undefined;
+      if (state !== 1) return; // 1 = playing
+      document
+        .querySelectorAll<HTMLIFrameElement>("iframe[data-yt-embed]")
+        .forEach((frame) => {
+          if (frame.contentWindow && frame.contentWindow !== e.source) {
+            frame.contentWindow.postMessage(
+              JSON.stringify({ event: "command", func: "pauseVideo", args: [] }),
+              YT_ORIGIN,
+            );
+          }
+        });
+    };
+    window.addEventListener("message", onMessage);
+    return () => window.removeEventListener("message", onMessage);
+  }, []);
+}
+
 export function GalleryClient({ items }: { items: GalleryItem[] }) {
+  usePauseOtherVideos();
   const router = useRouter();
   const pathname = usePathname();
   const params = useSearchParams();
@@ -172,12 +211,20 @@ function GalleryCard({ item }: { item: GalleryItem }) {
           )}
         >
           <iframe
-            src={`https://www.youtube-nocookie.com/embed/${item.src}?rel=0`}
+            data-yt-embed=""
+            src={`${YT_ORIGIN}/embed/${item.src}?rel=0&enablejsapi=1`}
             title={item.title}
             allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
             loading="lazy"
             className="absolute inset-0 size-full"
+            onLoad={(e) =>
+              // 재생 상태(onStateChange/infoDelivery)를 받으려면 listening 핸드셰이크 필요
+              e.currentTarget.contentWindow?.postMessage(
+                JSON.stringify({ event: "listening", id: item.src, channel: "widget" }),
+                YT_ORIGIN,
+              )
+            }
           />
         </div>
       ) : (
