@@ -84,6 +84,10 @@ function parseInput(formData: FormData): GalleryItemInput {
       ? levelRaw
       : null;
   const stage = String(formData.get("stage") ?? "").trim() || null;
+  const orientation =
+    String(formData.get("orientation") ?? "") === "portrait"
+      ? ("portrait" as const)
+      : ("landscape" as const);
   const rawSrc = String(formData.get("src") ?? "").trim();
   const rawSlug = String(formData.get("slug") ?? "").trim();
   return {
@@ -95,6 +99,7 @@ function parseInput(formData: FormData): GalleryItemInput {
     src: kind === "video" ? extractYouTubeId(rawSrc) : normalizeImageUrl(rawSrc),
     level,
     stage,
+    orientation,
     sort_order: Number(formData.get("sort_order") ?? 100),
   };
 }

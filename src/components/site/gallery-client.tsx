@@ -142,7 +142,7 @@ export function GalleryClient({ items }: { items: GalleryItem[] }) {
           }
         />
       ) : (
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-12 gap-6">
           {filtered.map((item) => (
             <GalleryCard key={item.id} item={item} />
           ))}
@@ -154,10 +154,23 @@ export function GalleryClient({ items }: { items: GalleryItem[] }) {
 
 function GalleryCard({ item }: { item: GalleryItem }) {
   const level = item.level ? CLASS_LEVELS[item.level] : null;
+  const isPortrait = item.orientation === "portrait";
   return (
-    <article className="group border-2 border-border bg-background overflow-hidden">
+    <article
+      className={cn(
+        "group border-2 border-border bg-background overflow-hidden",
+        isPortrait
+          ? "col-span-6 sm:col-span-4 lg:col-span-3"
+          : "col-span-12 sm:col-span-6 lg:col-span-4",
+      )}
+    >
       {item.kind === "video" ? (
-        <div className="relative aspect-video bg-black">
+        <div
+          className={cn(
+            "relative bg-black",
+            isPortrait ? "aspect-[9/16]" : "aspect-video",
+          )}
+        >
           <iframe
             src={`https://www.youtube-nocookie.com/embed/${item.src}?rel=0`}
             title={item.title}
@@ -178,13 +191,16 @@ function GalleryCard({ item }: { item: GalleryItem }) {
             <img
               src={item.src}
               alt={item.title}
-              className="w-full aspect-video object-cover transition-transform group-hover:scale-[1.02]"
+              className={cn(
+                "w-full object-cover transition-transform group-hover:scale-[1.02]",
+                isPortrait ? "aspect-[9/16]" : "aspect-video",
+              )}
             />
           </button>
         </GalleryImageModal>
       )}
 
-      <div className="p-6 space-y-3">
+      <div className={cn("space-y-3", isPortrait ? "p-4" : "p-6")}>
         {(level || item.stage) && (
           <div className="flex flex-wrap items-center gap-2 text-[11px] font-mono uppercase tracking-[0.2em]">
             {level && (
@@ -198,7 +214,12 @@ function GalleryCard({ item }: { item: GalleryItem }) {
             )}
           </div>
         )}
-        <h3 className="text-xl sm:text-2xl font-black tracking-[-0.02em] leading-tight">
+        <h3
+          className={cn(
+            "font-black tracking-[-0.02em] leading-tight",
+            isPortrait ? "text-base sm:text-lg" : "text-xl sm:text-2xl",
+          )}
+        >
           {item.title}
         </h3>
         {item.description && (

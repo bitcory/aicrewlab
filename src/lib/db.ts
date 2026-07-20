@@ -2,6 +2,8 @@ import { getCloudflareContext } from "@opennextjs/cloudflare";
 
 export type ClassLevel = "zero" | "up" | "pro";
 
+export type Orientation = "landscape" | "portrait";
+
 export type GalleryItem = {
   id: number;
   slug: string;
@@ -12,6 +14,7 @@ export type GalleryItem = {
   src: string;
   level: ClassLevel | null;
   stage: string | null;
+  orientation: Orientation;
   likes: number;
   sort_order: number;
   created_at: number;
@@ -26,6 +29,7 @@ export type GalleryItemInput = {
   src: string;
   level: ClassLevel | null;
   stage: string | null;
+  orientation: Orientation;
   sort_order: number;
 };
 
@@ -57,8 +61,8 @@ export async function createGalleryItem(input: GalleryItemInput): Promise<void> 
   const db = await getDB();
   await db
     .prepare(
-      `INSERT INTO gallery_items (slug, kind, title, description, creator, src, level, stage, sort_order)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      `INSERT INTO gallery_items (slug, kind, title, description, creator, src, level, stage, orientation, sort_order)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
     )
     .bind(
       input.slug,
@@ -69,6 +73,7 @@ export async function createGalleryItem(input: GalleryItemInput): Promise<void> 
       input.src,
       input.level,
       input.stage,
+      input.orientation,
       input.sort_order,
     )
     .run();
@@ -82,7 +87,7 @@ export async function updateGalleryItem(
   await db
     .prepare(
       `UPDATE gallery_items
-       SET slug = ?, kind = ?, title = ?, description = ?, creator = ?, src = ?, level = ?, stage = ?, sort_order = ?
+       SET slug = ?, kind = ?, title = ?, description = ?, creator = ?, src = ?, level = ?, stage = ?, orientation = ?, sort_order = ?
        WHERE id = ?`,
     )
     .bind(
@@ -94,6 +99,7 @@ export async function updateGalleryItem(
       input.src,
       input.level,
       input.stage,
+      input.orientation,
       input.sort_order,
       id,
     )

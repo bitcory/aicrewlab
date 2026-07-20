@@ -32,6 +32,22 @@ export function GalleryForm({ action, initial, submitLabel }: Props) {
         </label>
       </div>
 
+      <div>
+        <label className="block space-y-2">
+          <span className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
+            비율
+          </span>
+          <select
+            name="orientation"
+            defaultValue={initial?.orientation ?? "landscape"}
+            className="w-full bg-muted/30 border-2 border-border focus:border-foreground px-4 py-2.5 text-base outline-none"
+          >
+            <option value="landscape">가로 (16:9)</option>
+            <option value="portrait">세로 (9:16 · 쇼츠)</option>
+          </select>
+        </label>
+      </div>
+
       <Field label="제목" name="title" defaultValue={initial?.title} required />
 
       <div>
