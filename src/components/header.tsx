@@ -274,7 +274,7 @@ export function Header() {
             <Button
               asChild
               size="default"
-              className="hidden sm:inline-flex h-10 rounded-full px-5 text-sm font-bold text-white bg-orange-500 hover:bg-orange-500 shadow-[0_4px_0_0_#9a3412] hover:-translate-y-0.5 hover:shadow-[0_6px_0_0_#9a3412] active:translate-y-[3px] active:shadow-[0_1px_0_0_#9a3412] transition-all duration-100"
+              className="btn-3d-orange hidden sm:inline-flex h-10 rounded-full px-5 text-sm font-bold hover:text-white mb-1"
             >
               <a href="https://tbs.aitoolb.com" target="_blank" rel="noopener noreferrer">
                 강의실 입장
@@ -411,7 +411,7 @@ export function Header() {
               href="https://tbs.aitoolb.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 px-4 py-2 mx-1 rounded-full bg-orange-500 text-white font-bold shadow-[0_3px_0_0_#9a3412] active:translate-y-[2px] active:shadow-[0_1px_0_0_#9a3412] transition-all duration-100 whitespace-nowrap"
+              className="btn-3d-orange btn-3d-orange-sm inline-flex items-center gap-1 px-4 py-2 mx-1 mb-1 rounded-full font-bold whitespace-nowrap"
             >
               강의실 입장
               <ArrowUpRight className="size-4" />
