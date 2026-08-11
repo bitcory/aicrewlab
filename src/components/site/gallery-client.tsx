@@ -270,7 +270,7 @@ function GalleryCard({ item }: { item: GalleryItem }) {
           {item.title}
         </h3>
         {item.description && (
-          <p className="text-sm text-muted-foreground leading-relaxed">
+          <p className="text-sm text-muted-foreground leading-relaxed line-clamp-4">
             {item.description}
           </p>
         )}
