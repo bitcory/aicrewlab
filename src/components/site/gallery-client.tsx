@@ -103,7 +103,7 @@ export function GalleryClient({ items }: { items: GalleryItem[] }) {
     pro: source.filter((x) => x.level === "pro").length,
   };
 
-  // 클래스별로 묶고, 그 안에서 16:9끼리 → 9:16끼리 모아 배치.
+  // 클래스별로 묶고, 그 안에서 9:16끼리 → 16:9끼리 모아 배치.
   // 가로(12칸 중 4칸)와 세로(3칸)가 한 행에 섞이면 줄이 어긋나므로 그룹마다 그리드를 분리한다.
   // 클래스 순서와 클래스 내 순서는 기존 sort_order(=source 순서)를 그대로 따른다.
   const groups = useMemo(() => {
@@ -118,7 +118,7 @@ export function GalleryClient({ items }: { items: GalleryItem[] }) {
       else byKey.set(key, [item]);
     }
 
-    // 클래스 등장 순서를 유지하면서, 각 클래스 안에서 가로 그룹 → 세로 그룹 순으로.
+    // 클래스 등장 순서를 유지하면서, 각 클래스 안에서 세로(9:16) 그룹 → 가로(16:9) 그룹 순으로.
     const levels: string[] = [];
     for (const key of byKey.keys()) {
       const level = key.split("|")[0];
@@ -126,7 +126,7 @@ export function GalleryClient({ items }: { items: GalleryItem[] }) {
     }
 
     return levels.flatMap((level) =>
-      (["l", "p"] as const)
+      (["p", "l"] as const)
         .map((o) => ({ key: `${level}|${o}`, items: byKey.get(`${level}|${o}`) ?? [] }))
         .filter((g) => g.items.length > 0),
     );
