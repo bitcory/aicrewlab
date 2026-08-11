@@ -103,31 +103,36 @@ export function GalleryClient({ items }: { items: GalleryItem[] }) {
     pro: source.filter((x) => x.level === "pro").length,
   };
 
-  const filtered = useMemo(() => {
+  // 클래스별로 묶고, 그 안에서 16:9끼리 → 9:16끼리 모아 배치.
+  // 가로(12칸 중 4칸)와 세로(3칸)가 한 행에 섞이면 줄이 어긋나므로 그룹마다 그리드를 분리한다.
+  // 클래스 순서와 클래스 내 순서는 기존 sort_order(=source 순서)를 그대로 따른다.
+  const groups = useMemo(() => {
     const base =
       activeLevel === "all" ? source : source.filter((x) => x.level === activeLevel);
 
-    // 클래스별로 묶고, 그 안에서 16:9끼리 → 9:16끼리 모아 배치.
-    // 클래스 순서와 클래스 내 순서는 기존 sort_order(=source 순서)를 그대로 따른다.
-    const levelRank = new Map<string, number>();
-    base.forEach((x) => {
-      const key = x.level ?? "";
-      if (!levelRank.has(key)) levelRank.set(key, levelRank.size);
-    });
+    const byKey = new Map<string, GalleryItem[]>();
+    for (const item of base) {
+      const key = `${item.level ?? ""}|${item.orientation === "portrait" ? "p" : "l"}`;
+      const bucket = byKey.get(key);
+      if (bucket) bucket.push(item);
+      else byKey.set(key, [item]);
+    }
 
-    return base
-      .map((item, index) => ({ item, index }))
-      .sort((a, b) => {
-        const la = levelRank.get(a.item.level ?? "") ?? 0;
-        const lb = levelRank.get(b.item.level ?? "") ?? 0;
-        if (la !== lb) return la - lb;
-        const oa = a.item.orientation === "portrait" ? 1 : 0;
-        const ob = b.item.orientation === "portrait" ? 1 : 0;
-        if (oa !== ob) return oa - ob;
-        return a.index - b.index;
-      })
-      .map(({ item }) => item);
+    // 클래스 등장 순서를 유지하면서, 각 클래스 안에서 가로 그룹 → 세로 그룹 순으로.
+    const levels: string[] = [];
+    for (const key of byKey.keys()) {
+      const level = key.split("|")[0];
+      if (!levels.includes(level)) levels.push(level);
+    }
+
+    return levels.flatMap((level) =>
+      (["l", "p"] as const)
+        .map((o) => ({ key: `${level}|${o}`, items: byKey.get(`${level}|${o}`) ?? [] }))
+        .filter((g) => g.items.length > 0),
+    );
   }, [source, activeLevel]);
+
+  const total = groups.reduce((n, g) => n + g.items.length, 0);
 
   return (
     <>
@@ -195,7 +200,7 @@ export function GalleryClient({ items }: { items: GalleryItem[] }) {
         })}
       </div>
 
-      {filtered.length === 0 ? (
+      {total === 0 ? (
         <EmptyState
           message={
             activeTab === "videos"
@@ -204,9 +209,13 @@ export function GalleryClient({ items }: { items: GalleryItem[] }) {
           }
         />
       ) : (
-        <div className="grid grid-cols-12 gap-6">
-          {filtered.map((item) => (
-            <GalleryCard key={item.id} item={item} />
+        <div className="space-y-6">
+          {groups.map((group) => (
+            <div key={group.key} className="grid grid-cols-12 gap-6">
+              {group.items.map((item) => (
+                <GalleryCard key={item.id} item={item} />
+              ))}
+            </div>
           ))}
         </div>
       )}
