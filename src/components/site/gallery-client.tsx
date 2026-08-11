@@ -103,8 +103,31 @@ export function GalleryClient({ items }: { items: GalleryItem[] }) {
     pro: source.filter((x) => x.level === "pro").length,
   };
 
-  const filtered =
-    activeLevel === "all" ? source : source.filter((x) => x.level === activeLevel);
+  const filtered = useMemo(() => {
+    const base =
+      activeLevel === "all" ? source : source.filter((x) => x.level === activeLevel);
+
+    // 클래스별로 묶고, 그 안에서 16:9끼리 → 9:16끼리 모아 배치.
+    // 클래스 순서와 클래스 내 순서는 기존 sort_order(=source 순서)를 그대로 따른다.
+    const levelRank = new Map<string, number>();
+    base.forEach((x) => {
+      const key = x.level ?? "";
+      if (!levelRank.has(key)) levelRank.set(key, levelRank.size);
+    });
+
+    return base
+      .map((item, index) => ({ item, index }))
+      .sort((a, b) => {
+        const la = levelRank.get(a.item.level ?? "") ?? 0;
+        const lb = levelRank.get(b.item.level ?? "") ?? 0;
+        if (la !== lb) return la - lb;
+        const oa = a.item.orientation === "portrait" ? 1 : 0;
+        const ob = b.item.orientation === "portrait" ? 1 : 0;
+        if (oa !== ob) return oa - ob;
+        return a.index - b.index;
+      })
+      .map(({ item }) => item);
+  }, [source, activeLevel]);
 
   return (
     <>
