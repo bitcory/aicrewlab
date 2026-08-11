@@ -274,7 +274,7 @@ export function Header() {
             <Button
               asChild
               size="default"
-              className="btn-3d-orange hidden sm:inline-flex h-10 rounded-full px-5 text-sm font-bold hover:text-white mb-1"
+              className="btn-3d-orange hidden sm:inline-flex h-10 rounded-full px-5 text-sm font-bold hover:text-white"
             >
               <a href="https://tbs.aitoolb.com" target="_blank" rel="noopener noreferrer">
                 강의실 입장
@@ -411,7 +411,7 @@ export function Header() {
               href="https://tbs.aitoolb.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-3d-orange btn-3d-orange-sm inline-flex items-center gap-1 px-4 py-2 mx-1 mb-1 rounded-full font-bold whitespace-nowrap"
+              className="btn-3d-orange inline-flex items-center gap-1 px-4 py-2 mx-1 rounded-full font-bold whitespace-nowrap"
             >
               강의실 입장
               <ArrowUpRight className="size-4" />
