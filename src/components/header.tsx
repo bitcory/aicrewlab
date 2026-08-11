@@ -274,6 +274,17 @@ export function Header() {
             <Button
               asChild
               size="default"
+              variant="outline"
+              className="hidden sm:inline-flex h-10 rounded-full px-5 text-sm font-semibold"
+            >
+              <a href="https://tbs.aitoolb.com" target="_blank" rel="noopener noreferrer">
+                강의실 입장
+                <ArrowUpRight className="size-4" />
+              </a>
+            </Button>
+            <Button
+              asChild
+              size="default"
               className="h-10 rounded-full bg-foreground text-background hover:bg-foreground/90 px-5 text-sm font-semibold"
             >
               <Link href="/courses">수강 신청</Link>
@@ -395,6 +406,17 @@ export function Header() {
             >
               유용한 툴
             </Link>
+          </li>
+          <li>
+            <a
+              href="https://tbs.aitoolb.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 px-4 py-2.5 rounded-full ring-1 ring-border text-foreground hover:bg-muted/60 transition whitespace-nowrap"
+            >
+              강의실 입장
+              <ArrowUpRight className="size-4" />
+            </a>
           </li>
         </ul>
       </nav>

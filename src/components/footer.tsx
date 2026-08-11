@@ -76,6 +76,19 @@ export function Footer() {
       </div>
 
       <div className="border-t border-border/40">
+        <div className="w-full px-4 sm:px-8 lg:px-12 py-6 text-xs leading-relaxed text-muted-foreground space-y-1">
+          <p className="flex flex-wrap gap-x-4 gap-y-1">
+            <span>상호 : 아이크루</span>
+            <span>대표 : 김진욱</span>
+            <span>사업자등록번호 : 655-04-03066</span>
+            <span>통신판매업신고 : 제 2024-경기하남-0307 호</span>
+          </p>
+          <p>주소 : 경기도 하남시 미사강변중앙로 226, 1동 13층 1321호(망월동, 우성르보아파크)</p>
+          <p>이메일 : aitoolbee79@gmail.com</p>
+        </div>
+      </div>
+
+      <div className="border-t border-border/40">
         <div className="w-full px-4 sm:px-8 lg:px-12 py-5 font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
           <p>Built with Next.js · 천천히, 단계별로.</p>
           <p className="opacity-70">v0.1 · 2026</p>
