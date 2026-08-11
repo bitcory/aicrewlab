@@ -51,13 +51,7 @@ export function Footer() {
           <SectionLabel className="mb-4">Contact</SectionLabel>
           <ul className="space-y-2.5 text-sm">
             <li>
-              <span className="text-muted-foreground">General · </span>
-              <a href="mailto:hello@aicrew.academy" className="text-foreground/70 hover:text-foreground transition-colors">
-                hello@aicrew.academy
-              </a>
-            </li>
-            <li>
-              <span className="text-muted-foreground">Apply · </span>
+              <span className="text-muted-foreground">문의 · </span>
               <a href="mailto:aitoolbee79@gmail.com" className="text-foreground/70 hover:text-foreground transition-colors">
                 aitoolbee79@gmail.com
               </a>
@@ -84,7 +78,6 @@ export function Footer() {
             <span>통신판매업신고 : 제 2024-경기하남-0307 호</span>
           </p>
           <p>주소 : 경기도 하남시 미사강변중앙로 226, 1동 13층 1321호(망월동, 우성르보아파크)</p>
-          <p>이메일 : aitoolbee79@gmail.com</p>
         </div>
       </div>
 
